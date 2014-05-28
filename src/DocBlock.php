@@ -214,7 +214,7 @@ class DocBlock {
 	/**
 	 * Returns the short description
 	 * 
-	 * @return the string
+	 * @return string the short description
 	 */
 	public function getShortDescription() {
 		return $this->shortDescription;
@@ -234,7 +234,7 @@ class DocBlock {
 	/**
 	 * Returns the long description
 	 *
-	 * @return the string
+	 * @return string the long description
 	 */
 	public function getLongDescription() {
 		return $this->longDescription;
