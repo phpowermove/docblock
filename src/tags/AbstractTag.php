@@ -69,7 +69,9 @@ abstract class AbstractTag {
 	 *
 	 * @return string
 	 */
-	abstract public function toString();
+	public function toString() {
+		return sprintf('@%s %s', $this->tagName, $this->description);
+	}
 	
 	/**
 	 * Magic toString() method

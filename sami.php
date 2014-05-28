@@ -11,7 +11,7 @@ $iterator = Finder::create()
 	;
 
 return new Sami($iterator, [
-	'title' => 'CodeGen API Documentation',
+	'title' => 'DocBlock API Documentation',
 	'build_dir' => __DIR__ . '/api',
 	'default_opened_level' => 2
 ]);

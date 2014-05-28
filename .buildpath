@@ -13,6 +13,7 @@
 	<buildpathentry kind="src" path="vendor/phpunit/php-code-coverage/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/yaml"/>
 	<buildpathentry kind="src" path="vendor/sebastian/version/src"/>
+	<buildpathentry kind="src" path="tests"/>
 	<buildpathentry kind="src" path="vendor/phpunit/php-file-iterator/File"/>
 	<buildpathentry kind="src" path="vendor/nikic/php-parser/lib"/>
 	<buildpathentry kind="src" path="vendor/twig/twig/lib"/>

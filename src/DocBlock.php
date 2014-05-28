@@ -7,8 +7,9 @@ use gossi\docblock\tags\AbstractTag;
 
 class DocBlock {
 	
-	private $shortDescription;
-	private $longDescription;
+	protected $shortDescription;
+	protected $longDescription;
+	protected $tags;
 	
 	const REGEX_TAGNAME = '[\w\-\_\\\\]+';
 	
@@ -25,7 +26,7 @@ class DocBlock {
 	/**
 	 * Creates a new docblock instance and parses the initial string or reflector object if given
 	 * 
-	 * @param \Reflector|string a docblock to parse
+	 * @param \ReflectionFunctionAbstract|\ReflectionClass|\ReflectionProperty|string a docblock to parse
 	 */
 	public function __construct($docblock = null) {
 		$this->parse($docblock);
@@ -33,9 +34,8 @@ class DocBlock {
 	
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock.php Original Method
-	 * 
-	 * @param \Reflector|string $docblock
-	 * @throws \InvalidArgumentException
+	 * @param \ReflectionFunctionAbstract|\ReflectionClass|\ReflectionProperty|string $docblock
+	 * @throws \InvalidArgumentException if there is no getDocCommect() method available
 	 */
 	protected function parse($docblock) {
 		if (is_object($docblock)) {
@@ -200,6 +200,45 @@ class DocBlock {
 	}
 	
 	/**
+	 * Returns the short description
+	 * 
+	 * @return the string
+	 */
+	public function getShortDescription() {
+		return $this->shortDescription;
+	}
+	
+	/**
+	 * Sets the short description
+	 * 
+	 * @param string $shortDescription the new description     
+	 * @return $this   	
+	 */
+	public function setShortDescription($description) {
+		$this->shortDescription = $description;
+		return $this;
+	}
+	
+	/**
+	 * Returns the long description
+	 *
+	 * @return the string
+	 */
+	public function getLongDescription() {
+		return $this->longDescription;
+	}
+	
+	/**
+	 * Sets the long description
+	 * 
+	 * @param string $longDescription the new description        	
+	 */
+	public function setLongDescription($description) {
+		$this->longDescription = $description;
+		return $this;
+	}
+
+	/**
 	 * Adds a tag to this docblock
 	 * 
 	 * @param AbstractTag $tag
@@ -249,28 +288,18 @@ class DocBlock {
 	 * @return string
 	 */
 	public function toString() {
-		$docblock = '/**';
+		$docblock = "/**\n";
 		
 		// short description
 		$short = trim($this->shortDescription);
 		if (!empty($short)) {
-			$chunks = explode("\n", wordwrap($short));
-			foreach ($chunks as $line) {
-				$docblock .= ' * ' . $line . "\n";
-			}
+			$docblock .= $this->writeLines(explode("\n", wordwrap($short)));
 		}
 		
 		// short description
 		$long = trim($this->longDescription);
 		if (!empty($long)) {
-			if (!empty($short)) {
-				$docblock .= " * \n";
-			}
-			
-			$chunks = explode("\n", wordwrap($long));
-			foreach ($chunks as $line) {
-				$docblock .= ' * ' . $line . "\n";
-			}
+			$docblock .= $this->writeLines(explode("\n", wordwrap($long)), !empty($short));
 		}
 		
 		// tags
@@ -280,10 +309,29 @@ class DocBlock {
 		}
 		
 		if (count($tags)) {
+			$docblock .= $this->writeLines($tags, true);
+		}
+		
+		$docblock .= ' */';
+		
+		return $docblock;
+	}
+	
+	/**
+	 * Writes multiple lines with ' * ' prefixed for docblock
+	 * 
+	 * @param string[] $lines the lines to be written
+	 * @param string $newline if a new line should be added before
+	 * @return string the lines as string
+	 */
+	private function writeLines($lines, $newline = false) {
+		$docblock = '';
+		if ($newline) {
 			$docblock .= " * \n";
-			foreach ($tags as $line) {
-				$docblock .= ' * ' . $line . "\n";
-			}
+		}
+
+		foreach ($lines as $line) {
+			$docblock .= ' * ' . $line . "\n";
 		}
 		
 		return $docblock;

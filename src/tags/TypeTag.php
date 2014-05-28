@@ -26,7 +26,8 @@ class TypeTag extends AbstractTypeTag {
 		// if the first item that is encountered is not a variable; it is a type
 		if (isset($parts[0])
 				&& (strlen($parts[0]) > 0)
-				&& ($parts[0][0] !== '$')) {
+				&& ($parts[0][0] !== '$')
+				&& substr($parts[0], 0, 4) !== '...$') {
 			$this->type = array_shift($parts);
 			array_shift($parts);
 		}
