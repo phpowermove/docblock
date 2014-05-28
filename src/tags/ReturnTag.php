@@ -3,6 +3,8 @@ namespace gossi\docblock\tags;
 
 /**
  * Represents the @return tag.
+ * 
+ * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/return.html
  */
 class ReturnTag extends AbstractTypeTag {
 	

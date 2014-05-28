@@ -3,6 +3,8 @@ namespace gossi\docblock\tags;
 
 /**
  * Represents the @author tag.
+ * 
+ * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/author.html
  */
 class AuthorTag extends AbstractTag {
 	

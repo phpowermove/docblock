@@ -10,25 +10,25 @@ class TagFactory {
 	 * @var array An array with a tag as a key, and an FQCN as the handling class.
 	 */
 	private static $tagClassMap = array(
-			'author' => '\gossi\docblock\tag\AuthorTag',
-			'deprecated' => '\gossi\docblock\tag\DeprecatedTag',
-// 			'example' => '\gossi\docblock\tag\ExampleTag',
-// 			'link' => '\gossi\docblock\tag\LinkTag',
-// 			'method' => '\gossi\docblock\tag\MethodTag',
-			'param' => '\gossi\docblock\tag\ParamTag',
-			'property-read' => '\gossi\docblock\tag\PropertyReadTag',
-			'property' => '\gossi\docblock\tag\PropertyTag',
-			'property-write' => '\gossi\docblock\tag\PropertyWriteTag',
-			'return' => '\gossi\docblock\tag\ReturnTag',
-			'see' => '\gossi\docblock\tag\SeeTag',
-			'since' => '\gossi\docblock\tag\SinceTag',
-// 			'source' => '\gossi\docblock\tag\SourceTag',
-			'throw' => '\gossi\docblock\tag\ThrowsTag',
-			'throws' => '\gossi\docblock\tag\ThrowsTag',
-			'type' => '\gossi\docblock\tag\TypeTag',
-// 			'uses' => '\gossi\docblock\tag\UsesTag',
-			'var' => '\gossi\docblock\tag\VarTag',
-			'version' => '\gossi\docblock\tag\VersionTag'
+			'author' => '\gossi\docblock\tags\AuthorTag',
+			'deprecated' => '\gossi\docblock\tags\DeprecatedTag',
+// 			'example' => '\gossi\docblock\tags\ExampleTag',
+// 			'link' => '\gossi\docblock\tags\LinkTag',
+// 			'method' => '\gossi\docblock\tags\MethodTag',
+			'param' => '\gossi\docblock\tags\ParamTag',
+			'property-read' => '\gossi\docblock\tags\PropertyReadTag',
+			'property' => '\gossi\docblock\tags\PropertyTag',
+			'property-write' => '\gossi\docblock\tags\PropertyWriteTag',
+			'return' => '\gossi\docblock\tags\ReturnTag',
+			'see' => '\gossi\docblock\tags\SeeTag',
+			'since' => '\gossi\docblock\tags\SinceTag',
+// 			'source' => '\gossi\docblock\tags\SourceTag',
+			'throw' => '\gossi\docblock\tags\ThrowsTag',
+			'throws' => '\gossi\docblock\tags\ThrowsTag',
+			'type' => '\gossi\docblock\tags\TypeTag',
+// 			'uses' => '\gossi\docblock\tags\UsesTag',
+			'var' => '\gossi\docblock\tags\VarTag',
+			'version' => '\gossi\docblock\tags\VersionTag'
 	);
 	
 	/**
@@ -39,7 +39,7 @@ class TagFactory {
 	 * @return AbstractTag
 	 */
 	public static function create($tagName, $content = '') {
-		if (in_array($tagName, self::$tagClassMap)) {
+		if (isset(self::$tagClassMap[$tagName])) {
 			$class = self::$tagClassMap[$tagName];
 			return new $class($content);
 		} else {

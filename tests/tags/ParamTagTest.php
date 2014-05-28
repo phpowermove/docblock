@@ -24,16 +24,23 @@ class ParamTagTest extends \PHPUnit_Framework_TestCase {
 	public function testType() {
 		$type = 'int';
 		$param = new ParamTag();
-		$param->setType($type);
 		
+		$this->assertSame($param, $param->setType($type));
 		$this->assertEquals($type, $param->getType());
 	}
 	
 	public function testVariable() {
 		$variable = '$v';
 		$param = new ParamTag();
-		$param->setVariable($variable);
 		
+		$this->assertSame($param, $param->setVariable($variable));
 		$this->assertEquals($variable, $param->getVariable());
+	}
+	
+	public function testVariadic() {
+		$param = new ParamTag();
+		
+		$this->assertSame($param, $param->setVariadic(true));
+		$this->assertTrue($param->isVariadic());
 	}
 }

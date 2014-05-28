@@ -7,7 +7,7 @@ namespace gossi\docblock\tags;
  */
 abstract class AbstractTypeTag extends AbstractTag {
 
-	protected $type = '';
+	protected $type;
 
 	protected function parse($content) {
 		$parts = preg_split('/\s+/Su', $content, 2);
@@ -17,7 +17,8 @@ abstract class AbstractTypeTag extends AbstractTag {
 	}
 	
 	public function toString() {
-		return trim(sprintf('@%s %s %s', $this->tagName, $this->type, $this->description));
+		$type = $this->type ? $this->type . ' ' : '';
+		return trim(sprintf('@%s %s%s', $this->tagName, $type, $this->description));
 	}
 	
 	/**

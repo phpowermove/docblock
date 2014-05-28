@@ -22,16 +22,16 @@ class AuthorTagTest extends \PHPUnit_Framework_TestCase {
 	public function testName() {
 		$name = 'gossi';
 		$author = new AuthorTag();
-		$author->setName($name);
 		
+		$this->assertSame($author, $author->setName($name));
 		$this->assertEquals($name, $author->getName());
 	}
 	
 	public function testEmail() {
 		$email = 'hans@wurst.de';
 		$author = new AuthorTag();
-		$author->setEmail($email);
-	
+		
+		$this->assertSame($author, $author->setEmail($email));		
 		$this->assertEquals($email, $author->getEmail());
 	}
 }

@@ -2,6 +2,7 @@
 namespace gossi\docblock\tests;
 
 use gossi\docblock\DocBlock;
+use gossi\docblock\tags\ThrowsTag;
 
 class DocBlockTest extends \PHPUnit_Framework_TestCase {
 
@@ -34,6 +35,43 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('Short Description.', $docblock->getShortDescription());
 		$this->assertEquals('Long Description.', $docblock->getLongDescription());
 		$this->assertEquals($expected, $docblock->toString());
+	}
+	
+	public function testSingleLine() {
+		$docblock = new DocBlock('/** Single Line Doc */');
+		$this->assertEquals('Single Line Doc', $docblock->getShortDescription());
+	}
+	
+	public function testTags() {
+		$expected = '/**
+ * @author gossi
+ * @author KH
+ * @see https://github.com/gossi/docblock
+ * @since 28.5.2014
+ */';
+		$docblock = new DocBlock($expected);
+		
+		$tags = $docblock->getTags();
+		$this->assertEquals(4, count($tags));
+		
+		$authors = $docblock->getTags('author');
+		$this->assertEquals(2, count($authors));
+		
+		$this->assertEquals($expected, $docblock->toString());
+		$this->assertSame($docblock, $docblock->appendTag(ThrowsTag::create()));
+		
+		$tags = $docblock->getTags();
+		$this->assertEquals(5, count($tags));
+		
+		$this->assertTrue($docblock->hasTag('author'));
+		$this->assertFalse($docblock->hasTag('moooh'));
+	}
+	
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testInvalidTagName() {
+		new DocBlock('/** @v4r€able */');
 	}
 	
 }

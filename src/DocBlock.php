@@ -266,15 +266,15 @@ class DocBlock {
 	}
 	
 	/**
-	 * Gets tags by tag name
+	 * Gets tags (by tag name)
 	 * 
 	 * @param string $tagName
 	 * @return AbstractTag[] the tags
 	 */
-	public function getTags($tagName) {
+	public function getTags($tagName = null) {
 		$tags = [];
 		foreach ($this->tags as $tag) {
-			if ($tag->getTagName() == $tagName) {
+			if ($tagName === null || $tag->getTagName() == $tagName) {
 				$tags[] = $tag;
 			}
 		}
@@ -309,7 +309,7 @@ class DocBlock {
 		}
 		
 		if (count($tags)) {
-			$docblock .= $this->writeLines($tags, true);
+			$docblock .= $this->writeLines($tags, !empty($short) || !empty($long));
 		}
 		
 		$docblock .= ' */';
