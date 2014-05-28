@@ -2,6 +2,7 @@
 namespace gossi\docblock\tests\tags;
 
 use gossi\docblock\tags\VarTag;
+use gossi\docblock\DocBlock;
 
 class VarTagTest extends \PHPUnit_Framework_TestCase {
 	
@@ -10,4 +11,18 @@ class VarTagTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('@var Foo ...$bar', $var->toString());
 	}
 	
+	public function testDocblock() {
+		$expected = '/**
+ * @var mixed $foo bar
+ */';
+		$docblock = new DocBlock();
+		$var = VarTag::create()
+			->setType('mixed')
+			->setVariable('foo')
+			->setDescription('bar')
+		;
+		$docblock->appendTag($var);
+		
+		$this->assertEquals($expected, $docblock->toString());
+	}
 }

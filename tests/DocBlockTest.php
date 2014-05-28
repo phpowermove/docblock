@@ -82,21 +82,20 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 		new DocBlock(new \stdClass());
 	}
 	
-	/**
-	 * 
-	 */
-	public function testWrongDocblockSplit() {
-		new DocBlock('/**
-				 * Short Description.
-				 * 
-				 * Long Description.
-				 * 
-				 * 
-				 * sdfasdf @tag
-				 *  @tag2 wurst multi-
-				 *     linee
-				 * 
-				 */');
+	public function testMultilLongLineDescription() {
+		$expected = '/**
+ * Short Description.
+ * 
+ * Long Description, which is very long and takes ages to reach the very last of the current line
+ * before it brakes onto the next line
+ * 
+ * sdfasdf @tag
+ * 
+ * @tag2 wurst multi-
+ *     linee
+ */';
+		$docblock = new DocBlock($expected);
+ 		$this->assertEquals($expected, $docblock->toString());
 	}
 	
 	public function testFromReflection() {

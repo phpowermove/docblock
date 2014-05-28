@@ -55,6 +55,7 @@ abstract class AbstractTag {
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
+		return $this;
 	}
 
 	/**

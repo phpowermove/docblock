@@ -115,30 +115,30 @@ class DocBlock {
 			 * Big thanks to RichardJ for contributing this Regular Expression
 			 */
 			preg_match(
-			'/
-        \A (
-          [^\n.]+
-          (?:
-            (?! \. \n | \n{2} ) # disallow the first seperator here
-            [\n.] (?! [ \t]* @\pL ) # disallow second seperator
-            [^\n.]+
-          )*
-          \.?
-        )
-        (?:
-          \s* # first seperator (actually newlines but it\'s all whitespace)
-          (?! @\pL ) # disallow the rest, to make sure this one doesn\'t match,
-          #if it doesn\'t exist
-          (
-            [^\n]+
-            (?: \n+
-              (?! [ \t]* @\pL ) # disallow second seperator (@param)
-              [^\n]+
-            )*
-          )
-        )?
-        (\s+ [\s\S]*)? # everything that follows
-        /ux',
+				'/
+		        \A (
+		          [^\n.]+
+		          (?:
+		            (?! \. \n | \n{2} ) # disallow the first seperator here
+		            [\n.] (?! [ \t]* @\pL ) # disallow second seperator
+		            [^\n.]+
+		          )*
+		          \.?
+		        )
+		        (?:
+		          \s* # first seperator (actually newlines but it\'s all whitespace)
+		          (?! @\pL ) # disallow the rest, to make sure this one doesn\'t match,
+		          #if it doesn\'t exist
+		          (
+		            [^\n]+
+		            (?: \n+
+		              (?! [ \t]* @\pL ) # disallow second seperator (@param)
+		              [^\n]+
+		            )*
+		          )
+		        )?
+		        (\s+ [\s\S]*)? # everything that follows
+		        /ux',
 				$comment,
 				$matches
 			);
@@ -305,13 +305,13 @@ class DocBlock {
 		// short description
 		$short = trim($this->shortDescription);
 		if (!empty($short)) {
-			$docblock .= $this->writeLines(explode("\n", wordwrap($short)));
+			$docblock .= $this->writeLines(explode("\n", $short));
 		}
 		
 		// short description
 		$long = trim($this->longDescription);
 		if (!empty($long)) {
-			$docblock .= $this->writeLines(explode("\n", wordwrap($long)), !empty($short));
+			$docblock .= $this->writeLines(explode("\n", $long), !empty($short));
 		}
 		
 		// tags
@@ -343,7 +343,14 @@ class DocBlock {
 		}
 
 		foreach ($lines as $line) {
-			$docblock .= ' * ' . $line . "\n";
+			if (strpos($line, "\n")) {
+				$sublines = explode("\n", $line);
+				$line = array_shift($sublines);
+				$docblock .= ' * ' . $line . "\n";
+				$docblock .= $this->writeLines($sublines);
+			} else {
+				$docblock .= ' * ' . $line . "\n";
+			}
 		}
 		
 		return $docblock;

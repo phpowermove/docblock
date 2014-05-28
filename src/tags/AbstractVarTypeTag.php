@@ -83,6 +83,9 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	 * @return $this        	
 	 */
 	public function setVariable($variable) {
+		if ($variable[0] !== '$') {
+			$variable = '$' . $variable;
+		}
 		$this->variable = $variable;
 		return $this;
 	}
