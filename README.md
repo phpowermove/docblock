@@ -21,7 +21,6 @@ Install via Composer:
 And inject the Composer autoloader into your source code:
 
 ```php
-<?php
 require_once 'path/to/vendor/autoload.php';
 ```
 
@@ -32,7 +31,6 @@ require_once 'path/to/vendor/autoload.php';
 a) Simple:
 
 ```php
-<?php
 use gossi\docblock\DocBlock;
 
 $docblock = new DocBlock();
@@ -41,7 +39,6 @@ $docblock = new DocBlock();
 b) Create from string:
 
 ```php
-<?php
 use gossi\docblock\DocBlock;
 
 $docblock = new DocBlock('/**
@@ -56,7 +53,6 @@ $docblock = new DocBlock('/**
 c) Create from reflection:
 
 ```php
-<?php
 use gossi\docblock\DocBlock;
 
 $docblock = new DocBlock(new \ReflectionClass('MyClass'));
@@ -67,21 +63,18 @@ $docblock = new DocBlock(new \ReflectionClass('MyClass'));
 Get the tags:
 
 ```php
-<?php
 $tags = $docblock->getTags();
 ```
 
 Get tags by name:
 
 ```php
-<?php
 $tags = $docblock->getTags('author');
 ```
 
 Append a tag:
 
 ```php
-<?php
 use gossi\docblock\tags\AuthorTag;
 
 $author = new AuthorTag();
@@ -92,7 +85,6 @@ $docblock->appendTag($author);
 or with fluent API:
 
 ```php
-<?php
 use gossi\docblock\tags\AuthorTag;
 
 $docblock->appendTag(AuthorTag::create()
@@ -103,7 +95,6 @@ $docblock->appendTag(AuthorTag::create()
 Check tag existence:
 
 ```php
-<?php
 $docblock->hasTag('author');
 ```
 
@@ -112,14 +103,12 @@ $docblock->hasTag('author');
 Call `toString()`:
 
 ```php
-<?php
 $docblock->toString();
 ```
 
 or if you are in a write-context, the magical `__toString()` will take care of it:
 
 ```php
-<?php
 echo $docblock;
 ```
 
