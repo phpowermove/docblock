@@ -70,8 +70,37 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException \InvalidArgumentException
 	 */
-	public function testInvalidTagName() {
-		new DocBlock('/** @v4r€able */');
+	public function testInvalidDocblockParameter() {
+		new DocBlock(new \stdClass());
+	}
+	
+	/**
+	 * 
+	 */
+	public function testWrongDocblockSplit() {
+		new DocBlock('/**
+				 * Short Description.
+				 * 
+				 * Long Description.
+				 * 
+				 * 
+				 * sdfasdf @tag
+				 *  @tag2 wurst multi-
+				 *     linee
+				 * 
+				 */');
+	}
+	
+	public function testFromReflection() {
+		$expected = '/**
+ * Short Description.
+ * 
+ * @author gossi
+ */';
+		$reflection = new \ReflectionClass('\\gossi\\docblock\\tests\\fixtures\\ReflectionTestClass');
+		$docblock = DocBlock::create($reflection);
+		
+		$this->assertEquals($expected, '' . $docblock);
 	}
 	
 }

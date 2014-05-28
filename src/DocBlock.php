@@ -161,18 +161,8 @@ class DocBlock {
 		$result = [];
 		$tags = trim($tags);
 		if ($tags !== '') {
-			if ($tags[0] !== '@') {
-				throw new \LogicException(
-						'A tag block started with text instead of an actual tag,'
-						. ' this makes the tag block invalid: ' . $tags
-				);
-			}
 			
 			foreach (explode("\n", $tags) as $line) {
-				if (trim($line) === '') {
-					continue;
-				}
-		
 				if (isset($line[0]) && ($line[0] === '@')) {
 					$result[] = $line;
 				} else {
@@ -182,13 +172,9 @@ class DocBlock {
 		
 			// create proper Tag objects
 			foreach ($result as $key => $line) {
-				
-				// parse tag name
 				$matches = [];
-				if (!preg_match('/^@(' . self::REGEX_TAGNAME . ')(?:\s*([^\s].*)|$)?/us', $line, $matches)) {
-					throw new \InvalidArgumentException('Invalid tag_line detected: ' . $line);
-				}
-
+				preg_match('/^@(' . self::REGEX_TAGNAME . ')(?:\s*([^\s].*)|$)?/us', $line, $matches);
+				
 				$tagName = $matches[1];
 				$content = isset($matches[2]) ? $matches[2] : '';
 
