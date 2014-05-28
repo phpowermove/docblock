@@ -29,13 +29,14 @@ class SeeTag extends AbstractTag {
 	/**
 	 * Returns the reference
 	 * 
-	 * @return the string
+	 * @return string the reference
 	 */
 	public function getReference() {
 		return $this->reference;
 	}
 	
 	/**
+	 * Sets the reference
 	 *
 	 * @param string $reference a URL or FQSEN        	
 	 */

@@ -6,6 +6,12 @@ namespace gossi\docblock\tags;
  */
 class UnknownTag extends AbstractTag {
 	
+	/**
+	 * Creates a new tag
+	 * 
+	 * @param string $tagName the tag name
+	 * @param string $content the tags content
+	 */
 	public function __construct($tagName, $content = '') {
 		parent::__construct($tagName, $content);
 	}

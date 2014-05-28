@@ -91,28 +91,29 @@ class DocBlock {
 	 *     containing the tags.
 	 */
 	protected function splitDocBlock($comment) {
+		$matches = [];
+		
 		if (strpos($comment, '@') === 0) {
 			$matches = array('', '', $comment);
 		} else {
 			// clears all extra horizontal whitespace from the line endings
 			// to prevent parsing issues
 			$comment = preg_replace('/\h*$/Sum', '', $comment);
-			$matches = [];
-	
+			
 			/*
 			 * Splits the docblock into a short description, long description and
-			* tags section
-			* - The short description is started from the first character until
-			*   a dot is encountered followed by a newline OR
-			*   two consecutive newlines (horizontal whitespace is taken into
-					*   account to consider spacing errors)
-			* - The long description, any character until a new line is
-			*   encountered followed by an @ and word characters (a tag).
-			*   This is optional.
-			* - Tags; the remaining characters
-			*
-			* Big thanks to RichardJ for contributing this Regular Expression
-			*/
+			 * tags section
+			 * - The short description is started from the first character until
+			 *   a dot is encountered followed by a newline OR
+			 *   two consecutive newlines (horizontal whitespace is taken into
+			 *   account to consider spacing errors)
+			 * - The long description, any character until a new line is
+			 *   encountered followed by an @ and word characters (a tag).
+			 *   This is optional.
+			 * - Tags; the remaining characters
+			 *
+			 * Big thanks to RichardJ for contributing this Regular Expression
+			 */
 			preg_match(
 			'/
         \A (
@@ -165,7 +166,7 @@ class DocBlock {
 			
 			// sanitize lines
 			foreach (explode("\n", $tags) as $line) {
-				if ((isset($line[0]) && ($line[0] === '@')) || count($result) == 0) {
+				if ($this->isTagLine($line) || count($result) == 0) {
 					$result[] = $line;
 				} else {
 					$result[count($result) - 1] .= PHP_EOL . $line;
@@ -181,6 +182,23 @@ class DocBlock {
 		$this->tags = $result;
 	}
 	
+	/**
+	 * Checks whether the given line is a tag line (= starts with @) or not
+	 * 
+	 * @param string $line
+	 * @return boolean
+	 */
+	protected function isTagLine($line) {
+		return isset($line[0]) && $line[0] == '@';
+	}
+	
+	/**
+	 * Parses an individual tag line
+	 * 
+	 * @param string $line
+	 * @throws \InvalidArgumentException
+	 * @return \gossi\docblock\tags\AbstractTag
+	 */
 	protected function parseTag($line) {
 		$matches = [];
 		if (!preg_match('/^@(' . self::REGEX_TAGNAME . ')(?:\s*([^\s].*)|$)?/us', $line, $matches)) {
@@ -205,7 +223,7 @@ class DocBlock {
 	/**
 	 * Sets the short description
 	 * 
-	 * @param string $shortDescription the new description     
+	 * @param string $description the new description     
 	 * @return $this   	
 	 */
 	public function setShortDescription($description) {
@@ -225,7 +243,7 @@ class DocBlock {
 	/**
 	 * Sets the long description
 	 * 
-	 * @param string $longDescription the new description        	
+	 * @param string $description the new description        	
 	 */
 	public function setLongDescription($description) {
 		$this->longDescription = $description;
@@ -318,7 +336,7 @@ class DocBlock {
 	 * @param boolean $newline if a new line should be added before
 	 * @return string the lines as string
 	 */
-	private function writeLines($lines, $newline = false) {
+	protected function writeLines($lines, $newline = false) {
 		$docblock = '';
 		if ($newline) {
 			$docblock .= " * \n";

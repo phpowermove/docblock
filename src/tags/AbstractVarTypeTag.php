@@ -68,16 +68,18 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	}
 	
 	/**
-	 *
-	 * @return the string
+	 * Returnst the variable
+	 * 
+	 * @return string the variable name
 	 */
 	public function getVariable() {
 		return $this->variable;
 	}
 	
 	/**
+	 * Sets the variable
 	 *
-	 * @param string $variable
+	 * @param string $variable the new variable name
 	 * @return $this        	
 	 */
 	public function setVariable($variable) {

@@ -51,16 +51,18 @@ abstract class AbstractVersionTag extends AbstractTag {
 	}
 	
 	/**
-	 *
-	 * @return the string
+	 * Returns the version
+	 * 
+	 * @return string the version
 	 */
 	public function getVersion() {
 		return $this->version;
 	}
 	
 	/**
-	 *
-	 * @param string $version 
+	 * Sets the version
+	 * 
+	 * @param string $version the new version 
 	 * @return $this       	
 	 */
 	public function setVersion($version) {

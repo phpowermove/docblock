@@ -24,7 +24,7 @@ abstract class AbstractTypeTag extends AbstractTag {
 	/**
 	 * Returns the type
 	 * 
-	 * @return the string the type
+	 * @return string the type
 	 */
 	public function getType() {
 		return $this->type;

@@ -21,7 +21,6 @@ class AuthorTag extends AbstractTag {
 	protected $name;
 	protected $email;
 	
-	
 	public function __construct($content = '') {
 		parent::__construct('author', $content);
 	}
@@ -47,16 +46,18 @@ class AuthorTag extends AbstractTag {
 	}
 	
 	/**
-	 *
-	 * @return the string
+	 * Returns the authors name
+	 * 
+	 * @return string the authors name
 	 */
 	public function getName() {
 		return $this->name;
 	}
 	
 	/**
+	 * Sets the authors name
 	 *
-	 * @param string $name
+	 * @param string $name the new name
 	 * @return $this     	
 	 */
 	public function setName($name) {
@@ -65,16 +66,18 @@ class AuthorTag extends AbstractTag {
 	}
 	
 	/**
-	 *
-	 * @return the string
+	 * Returns the authors email
+	 * 
+	 * @return string the authors email
 	 */
 	public function getEmail() {
 		return $this->email;
 	}
 	
 	/**
-	 *
-	 * @param string $email
+	 * Sets the authors email
+	 * 
+	 * @param string $email the new email
 	 * @return $this         	
 	 */
 	public function setEmail($email) {
