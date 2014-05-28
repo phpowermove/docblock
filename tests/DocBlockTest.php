@@ -3,6 +3,7 @@ namespace gossi\docblock\tests;
 
 use gossi\docblock\DocBlock;
 use gossi\docblock\tags\ThrowsTag;
+use gossi\docblock\tests\fixtures\MyDocBlock;
 
 class DocBlockTest extends \PHPUnit_Framework_TestCase {
 
@@ -65,6 +66,13 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 		
 		$this->assertTrue($docblock->hasTag('author'));
 		$this->assertFalse($docblock->hasTag('moooh'));
+	}
+	
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testInvalidTags() {
+		new MyDocBlock('');
 	}
 	
 	/**

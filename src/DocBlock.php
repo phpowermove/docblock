@@ -97,6 +97,7 @@ class DocBlock {
 			// clears all extra horizontal whitespace from the line endings
 			// to prevent parsing issues
 			$comment = preg_replace('/\h*$/Sum', '', $comment);
+			$matches = [];
 	
 			/*
 			 * Splits the docblock into a short description, long description and
@@ -162,8 +163,9 @@ class DocBlock {
 		$tags = trim($tags);
 		if ($tags !== '') {
 			
+			// sanitize lines
 			foreach (explode("\n", $tags) as $line) {
-				if (isset($line[0]) && ($line[0] === '@')) {
+				if ((isset($line[0]) && ($line[0] === '@')) || count($result) == 0) {
 					$result[] = $line;
 				} else {
 					$result[count($result) - 1] .= PHP_EOL . $line;
@@ -172,17 +174,23 @@ class DocBlock {
 		
 			// create proper Tag objects
 			foreach ($result as $key => $line) {
-				$matches = [];
-				preg_match('/^@(' . self::REGEX_TAGNAME . ')(?:\s*([^\s].*)|$)?/us', $line, $matches);
-				
-				$tagName = $matches[1];
-				$content = isset($matches[2]) ? $matches[2] : '';
-
-				$result[$key] = TagFactory::create($tagName, $content);
+				$result[$key] = $this->parseTag($line); 
 			}
 		}
 		
 		$this->tags = $result;
+	}
+	
+	protected function parseTag($line) {
+		$matches = [];
+		if (!preg_match('/^@(' . self::REGEX_TAGNAME . ')(?:\s*([^\s].*)|$)?/us', $line, $matches)) {
+			throw new \InvalidArgumentException('Invalid tag line detected: ' . $line);
+		}
+		
+		$tagName = $matches[1];
+		$content = isset($matches[2]) ? $matches[2] : '';
+		
+		return TagFactory::create($tagName, $content);
 	}
 	
 	/**
