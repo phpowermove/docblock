@@ -4,6 +4,13 @@ namespace gossi\docblock\tests;
 use gossi\docblock\DocBlock;
 use gossi\docblock\tags\ThrowsTag;
 use gossi\docblock\tests\fixtures\MyDocBlock;
+use gossi\docblock\tags\AuthorTag;
+use gossi\docblock\tags\SeeTag;
+use gossi\docblock\tags\SinceTag;
+use gossi\docblock\tags\PropertyTag;
+use gossi\docblock\tags\ReturnTag;
+use gossi\docblock\tags\ParamTag;
+use gossi\docblock\tags\UnknownTag;
 
 class DocBlockTest extends \PHPUnit_Framework_TestCase {
 
@@ -45,9 +52,9 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testTags() {
 		$expected = '/**
+ * @see https://github.com/gossi/docblock
  * @author gossi
  * @author KH
- * @see https://github.com/gossi/docblock
  * @since 28.5.2014
  */';
 		$docblock = new DocBlock($expected);
@@ -108,6 +115,28 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 		$docblock = DocBlock::create($reflection);
 		
 		$this->assertEquals($expected, '' . $docblock);
+	}
+	
+	public function testTagSorting() {
+		$doc = new DocBlock();
+		
+		$doc->appendTag(new AuthorTag());
+		$doc->appendTag(new SeeTag());
+		$doc->appendTag(new ThrowsTag());
+		$doc->appendTag(new UnknownTag('wurst'));
+		$doc->appendTag(new SinceTag());
+		$doc->appendTag(new ParamTag());
+		$doc->appendTag(new PropertyTag());
+		$doc->appendTag(new ReturnTag());
+		
+		$actual = [];
+		$expected = ['wurst', 'see', 'author', 'property', 'since', 'param', 'throws', 'return'];
+		$sorted = $doc->getSortedTags();
+		foreach ($sorted as $tag) {
+			$actual[] = $tag->getTagName();
+		}
+		
+		$this->assertEquals($expected, $actual);
 	}
 	
 }

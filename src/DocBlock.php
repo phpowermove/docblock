@@ -294,6 +294,50 @@ class DocBlock {
 		return $tags;
 	}
 	
+	public function getSortedTags() {
+		$tags = [];
+		foreach ($this->tags as $tag) {
+			if (!isset($tags[$tag->getTagName()])) {
+				$tags[$tag->getTagName()] = [];
+			}
+			$tags[$tag->getTagName()][] = $tag;
+		}
+		$keys = array_keys($tags);
+		
+		usort($keys, [$this, 'compareTagNames']);
+		
+		$sorted = [];
+		foreach ($keys as $tagName) {
+			foreach ($tags[$tagName] as $tag) {
+				$sorted[] = $tag;
+			}
+		}
+		return $sorted;
+	}
+
+	protected function compareTagNames($tagA, $tagB) {
+		$order = ['see', 'author', 'property-read', 'property-write', 'property',
+			'method', 'deprecated', 'since', 'version', 'var', 'type', 'param',
+			'throws', 'return'];
+
+		if ($tagA == $tagB) {
+			return 0;
+		}
+		
+		if (!in_array($tagA, $order)) {
+			return -1;
+		}
+		
+		if (!in_array($tagB, $order)) {
+			return 1;
+		}
+		
+		$pos1 = array_search($tagA, $order);
+		$pos2 = array_search($tagB, $order);
+		
+		return $pos1 < $pos2 ? -1 : 1;
+	}
+	
 	/**
 	 * Returns the string version of the docblock
 	 * 
@@ -316,7 +360,8 @@ class DocBlock {
 		
 		// tags
 		$tags = [];
-		foreach ($this->tags as $tag) {
+		$sorted = $this->getSortedTags();
+		foreach ($sorted as $tag) {
 			$tags[] = $tag->toString();
 		}
 		
