@@ -153,7 +153,7 @@ class DocBlock {
 	 * Parses the tags
 	 * 
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock.php Original Method
-	 * @param array $tags
+	 * @param string $tags
 	 * @throws \LogicException
 	 * @throws \InvalidArgumentException
 	 */
@@ -161,7 +161,7 @@ class DocBlock {
 		$result = [];
 		$tags = trim($tags);
 		if ($tags !== '') {
-			if ('@' !== $tags[0]) {
+			if ($tags[0] !== '@') {
 				throw new \LogicException(
 						'A tag block started with text instead of an actual tag,'
 						. ' this makes the tag block invalid: ' . $tags
@@ -321,7 +321,7 @@ class DocBlock {
 	 * Writes multiple lines with ' * ' prefixed for docblock
 	 * 
 	 * @param string[] $lines the lines to be written
-	 * @param string $newline if a new line should be added before
+	 * @param boolean $newline if a new line should be added before
 	 * @return string the lines as string
 	 */
 	private function writeLines($lines, $newline = false) {
