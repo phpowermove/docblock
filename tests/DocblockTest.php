@@ -60,16 +60,20 @@ class DocblockTest extends \PHPUnit_Framework_TestCase {
 		$docblock = new Docblock($expected);
 		
 		$tags = $docblock->getTags();
-		$this->assertEquals(4, count($tags));
+		$this->assertEquals(4, $tags->size());
+		$this->assertTrue($docblock->hasTag('see'));
+		$this->assertTrue($docblock->hasTag('author'));
+		$this->assertTrue($docblock->hasTag('since'));
+		$this->assertFalse($docblock->hasTag('license'));
 		
 		$authors = $docblock->getTags('author');
-		$this->assertEquals(2, count($authors));
+		$this->assertEquals(2, $authors->size());
 		
 		$this->assertEquals($expected, $docblock->toString());
 		$this->assertSame($docblock, $docblock->appendTag(ThrowsTag::create()));
 		
 		$tags = $docblock->getTags();
-		$this->assertEquals(5, count($tags));
+		$this->assertEquals(5, $tags->size());
 		
 		$this->assertTrue($docblock->hasTag('author'));
 		$this->assertFalse($docblock->hasTag('moooh'));
@@ -138,6 +142,27 @@ class DocblockTest extends \PHPUnit_Framework_TestCase {
 		}
 		
 		$this->assertEquals($expected, $actual);
+	}
+	
+	public function testEmpty() {
+		$doc = new Docblock();
+		$this->assertTrue($doc->isEmpty());
+		
+		$doc->setLongDescription('bla');
+		$this->assertFalse($doc->isEmpty());
+		
+		$doc->setLongDescription(null);
+		$this->assertTrue($doc->isEmpty());
+		
+		$doc->setShortDescription('bla');
+		$this->assertFalse($doc->isEmpty());
+		
+		$doc->setShortDescription(null);
+		$this->assertTrue($doc->isEmpty());
+
+		$doc->appendTag(new SeeTag());
+		$this->assertFalse($doc->isEmpty());
+		
 	}
 	
 }

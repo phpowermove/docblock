@@ -4,12 +4,15 @@ namespace gossi\docblock;
 
 use gossi\docblock\tags\TagFactory;
 use gossi\docblock\tags\AbstractTag;
+use gossi\collection\ArrayList;
+use gossi\collection\Map;
 
 class Docblock {
 	
 	protected $shortDescription;
 	protected $longDescription;
 	protected $tags;
+	protected $comparator = null;
 	
 	const REGEX_TAGNAME = '[\w\-\_\\\\]+';
 	
@@ -29,6 +32,7 @@ class Docblock {
 	 * @param \ReflectionFunctionAbstract|\ReflectionClass|\ReflectionProperty|string a docblock to parse
 	 */
 	public function __construct($docblock = null) {
+		$this->tags = new ArrayList();
 		$this->parse($docblock);
 	}
 	
@@ -160,11 +164,11 @@ class Docblock {
 	 * @throws \InvalidArgumentException
 	 */
 	protected function parseTags($tags) {
-		$result = [];
 		$tags = trim($tags);
-		if ($tags !== '') {
+		if (!empty($tags)) {
 			
 			// sanitize lines
+			$result = [];
 			foreach (explode("\n", $tags) as $line) {
 				if ($this->isTagLine($line) || count($result) == 0) {
 					$result[] = $line;
@@ -172,14 +176,17 @@ class Docblock {
 					$result[count($result) - 1] .= PHP_EOL . $line;
 				}
 			}
-		
+
 			// create proper Tag objects
-			foreach ($result as $key => $line) {
-				$result[$key] = $this->parseTag($line); 
+			if (count($result)) {
+				$this->tags->clear();
+				foreach ($result as $line) {
+					$this->tags->add($this->parseTag($line)); 
+				}
 			}
 		}
 		
-		$this->tags = $result;
+		
 	}
 	
 	/**
@@ -257,7 +264,7 @@ class Docblock {
 	 * @return $this
 	 */
 	public function appendTag(AbstractTag $tag) {
-		$this->tags[] = $tag;
+		$this->tags->add($tag);
 		return $this;
 	}
 	
@@ -268,75 +275,64 @@ class Docblock {
 	 * @return boolean
 	 */
 	public function hasTag($tagName) {
-		foreach ($this->tags as $tag) {
-			if ($tag->getTagName() == $tagName) {
-				return true;
-			}
-		}
-		
-		return false;
+		return $this->tags->search($tagName, function (AbstractTag $tag, $query) {
+			return $tag->getTagName() == $query;
+		});
 	}
 	
 	/**
 	 * Gets tags (by tag name)
 	 * 
 	 * @param string $tagName
-	 * @return AbstractTag[] the tags
+	 * @return ArrayList the tags
 	 */
 	public function getTags($tagName = null) {
-		$tags = [];
-		foreach ($this->tags as $tag) {
-			if ($tagName === null || $tag->getTagName() == $tagName) {
-				$tags[] = $tag;
-			}
-		}
-		
-		return $tags;
+		return $this->tags->filter(function ($tag) use ($tagName) {
+			return $tagName === null || $tag->getTagName() == $tagName;
+		});
 	}
-	
+
+	/**
+	 * A list of tags sorted by tag-name
+	 * 
+	 * @return ArrayList
+	 */
 	public function getSortedTags() {
-		$tags = [];
+		if ($this->comparator === null) {
+			$this->comparator = new TagNameComparator(); 
+		}
+
+		// 1) group by tag name
+		$group = new Map();
 		foreach ($this->tags as $tag) {
-			if (!isset($tags[$tag->getTagName()])) {
-				$tags[$tag->getTagName()] = [];
+			if (!$group->has($tag->getTagName())) {
+				$group->set($tag->getTagName(), new ArrayList());
 			}
-			$tags[$tag->getTagName()][] = $tag;
-		}
-		$keys = array_keys($tags);
+			
+			$group->get($tag->getTagName())->add($tag);
+		} 
 		
-		usort($keys, [$this, 'compareTagNames']);
+		// 2) Sort the group by tag name
+		$group->sortKeys(new TagNameComparator());
 		
-		$sorted = [];
-		foreach ($keys as $tagName) {
-			foreach ($tags[$tagName] as $tag) {
-				$sorted[] = $tag;
-			}
+		// 3) flatten the group
+		$sorted = new ArrayList();
+		foreach ($group->values() as $tags) {
+			$sorted->addAll($tags);
 		}
+		
 		return $sorted;
 	}
-
-	protected function compareTagNames($tagA, $tagB) {
-		$order = ['see', 'author', 'property-read', 'property-write', 'property',
-			'method', 'deprecated', 'since', 'version', 'var', 'type', 'param',
-			'throws', 'return'];
-
-		// there are never two of the same tags
-		if ($tagA == $tagB) {
-			return 0;
-		}
-		
-		if (!in_array($tagA, $order)) {
-			return -1;
-		}
-		
-		if (!in_array($tagB, $order)) {
-			return 1;
-		}
-		
-		$pos1 = array_search($tagA, $order);
-		$pos2 = array_search($tagB, $order);
-		
-		return $pos1 < $pos2 ? -1 : 1;
+	
+	/**
+	 * Returns true when there is no content in the docblock
+	 *  
+	 * @return boolean
+	 */
+	public function isEmpty() {
+		return empty($this->shortDescription) 
+				&& empty($this->longDescription) 
+				&& $this->tags->size() == 0;
 	}
 	
 	/**
@@ -360,16 +356,14 @@ class Docblock {
 		}
 		
 		// tags
-		$tags = [];
-		$sorted = $this->getSortedTags();
-		foreach ($sorted as $tag) {
-			$tags[] = $tag->toString();
-		}
+		$tags = $this->getSortedTags()->map(function($tag) {
+			return $tag->toString();
+		});
 		
-		if (count($tags)) {
-			$docblock .= $this->writeLines($tags, !empty($short) || !empty($long));
+		if (!$tags->isEmpty()) {
+			$docblock .= $this->writeLines($tags->toArray(), !empty($short) || !empty($long));
 		}
-		
+
 		$docblock .= ' */';
 		
 		return $docblock;
@@ -410,4 +404,5 @@ class Docblock {
 	public function __toString() {
 		return $this->toString();
 	}
+	
 }
