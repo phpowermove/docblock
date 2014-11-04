@@ -4,7 +4,7 @@ namespace gossi\docblock\tags;
 /**
  * Represents an unknown tag.
  */
-class UnknownTag extends AbstractTag {
+class UnknownTag extends AbstractDescriptionTag {
 	
 	/**
 	 * Creates a new tag
@@ -20,4 +20,7 @@ class UnknownTag extends AbstractTag {
 		$this->setDescription($content);
 	}
 	
+	public function toString() {
+		return sprintf('@%s %s', $this->tagName, $this->description);
+	}
 }

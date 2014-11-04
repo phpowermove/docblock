@@ -1,11 +1,11 @@
 # Docblock
 
-![DOI](https://zenodo.org/badge/3684/gossi/docblock.png)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.10182.png)](http://dx.doi.org/10.5281/zenodo.10182)
 [![Build Status](https://travis-ci.org/gossi/docblock.svg?branch=master)](https://travis-ci.org/gossi/docblock)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gossi/docblock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gossi/docblock/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/gossi/docblock/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gossi/docblock/?branch=master)
 
-PHP DocBlock parser and generator. An API to read and write DocBlocks.
+PHP Docblock parser and generator. An API to read and write Docblocks.
 
 ## Installation
 
@@ -27,22 +27,22 @@ require_once 'path/to/vendor/autoload.php';
 
 ## Usage
 
-### 1. Generate a DocBlock instance
+### 1. Generate a Docblock instance
 
 a) Simple:
 
 ```php
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 
-$docblock = new DocBlock();
+$docblock = new Docblock();
 ```
 
 b) Create from string:
 
 ```php
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 
-$docblock = new DocBlock('/**
+$docblock = new Docblock('/**
  * Short Description.
  *
  * Long Description.
@@ -54,9 +54,9 @@ $docblock = new DocBlock('/**
 c) Create from reflection:
 
 ```php
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 
-$docblock = new DocBlock(new \ReflectionClass('MyClass'));
+$docblock = new Docblock(new \ReflectionClass('MyClass'));
 ```
 
 ### 2. Manipulate tags
@@ -122,6 +122,20 @@ Feel free to fork and submit a pull request (don't forget the tests) and I am ha
 - This project uses the parsers from [phpDocumentor/ReflectionDocBlock](https://github.com/phpDocumentor/ReflectionDocBlock)
 
 ## Changelog
+
+Version 1.2 - *November, 4th 2014*
+
+* Renamed `DocBlock` to `Docblock`
+* Added License Tag
+* Added Link Tag
+
+Version 1.1 - *May, 28th 2014*
+
+* Added tag sorting for DocBlock::toString();
+
+Version 1.0.1 - *May, 28th 2014*
+
+* Don't wordwrap long lines anymore. Fixing fluent interface for AbstractTag::setDescription();
 
 Version 1.0 - *May, 28th 2014*
 

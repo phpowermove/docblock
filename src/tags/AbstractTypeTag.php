@@ -5,7 +5,7 @@ namespace gossi\docblock\tags;
  * Represents tags which are in the format
  *   @tag [Type] [Description] 
  */
-abstract class AbstractTypeTag extends AbstractTag {
+abstract class AbstractTypeTag extends AbstractDescriptionTag {
 
 	protected $type;
 

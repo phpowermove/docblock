@@ -1,11 +1,11 @@
 <?php
 namespace gossi\docblock\tests\fixtures;
 
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 
-class MyDocBlock extends DocBlock {
+class MyDocBlock extends Docblock {
 	
-	protected function splitDocBlock($comment) {
+	protected function splitDocblock($comment) {
 		return array('', '', 'Invalid tag block');
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 namespace gossi\docblock\tests;
 
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 use gossi\docblock\tags\ThrowsTag;
 use gossi\docblock\tests\fixtures\MyDocBlock;
 use gossi\docblock\tags\AuthorTag;
@@ -12,11 +12,11 @@ use gossi\docblock\tags\ReturnTag;
 use gossi\docblock\tags\ParamTag;
 use gossi\docblock\tags\UnknownTag;
 
-class DocBlockTest extends \PHPUnit_Framework_TestCase {
+class DocblockTest extends \PHPUnit_Framework_TestCase {
 
 	public function testShortDescription() {
 		$desc = 'Hello World';
-		$docblock = new DocBlock();
+		$docblock = new Docblock();
 
 		$docblock->setShortDescription($desc);
 		
@@ -25,7 +25,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testLongDescription() {
 		$desc = 'Hello World';
-		$docblock = new DocBlock();
+		$docblock = new Docblock();
 	
 		$docblock->setLongDescription($desc);
 	
@@ -38,7 +38,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
  * 
  * Long Description.
  */';
-		$docblock = new DocBlock($expected);
+		$docblock = new Docblock($expected);
 		
 		$this->assertEquals('Short Description.', $docblock->getShortDescription());
 		$this->assertEquals('Long Description.', $docblock->getLongDescription());
@@ -46,7 +46,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 	}
 	
 	public function testSingleLine() {
-		$docblock = new DocBlock('/** Single Line Doc */');
+		$docblock = new Docblock('/** Single Line Doc */');
 		$this->assertEquals('Single Line Doc', $docblock->getShortDescription());
 	}
 	
@@ -57,7 +57,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
  * @author KH
  * @since 28.5.2014
  */';
-		$docblock = new DocBlock($expected);
+		$docblock = new Docblock($expected);
 		
 		$tags = $docblock->getTags();
 		$this->assertEquals(4, count($tags));
@@ -86,7 +86,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testInvalidDocblockParameter() {
-		new DocBlock(new \stdClass());
+		new Docblock(new \stdClass());
 	}
 	
 	public function testMultilLongLineDescription() {
@@ -101,7 +101,7 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
  * @tag2 wurst multi-
  *     linee
  */';
-		$docblock = new DocBlock($expected);
+		$docblock = new Docblock($expected);
  		$this->assertEquals($expected, $docblock->toString());
 	}
 	
@@ -112,13 +112,13 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
  * @author gossi
  */';
 		$reflection = new \ReflectionClass('\\gossi\\docblock\\tests\\fixtures\\ReflectionTestClass');
-		$docblock = DocBlock::create($reflection);
+		$docblock = Docblock::create($reflection);
 		
 		$this->assertEquals($expected, '' . $docblock);
 	}
 	
 	public function testTagSorting() {
-		$doc = new DocBlock();
+		$doc = new Docblock();
 		
 		$doc->appendTag(new AuthorTag());
 		$doc->appendTag(new SeeTag());
@@ -126,11 +126,12 @@ class DocBlockTest extends \PHPUnit_Framework_TestCase {
 		$doc->appendTag(new UnknownTag('wurst'));
 		$doc->appendTag(new SinceTag());
 		$doc->appendTag(new ParamTag());
+		$doc->appendTag(new ParamTag());
 		$doc->appendTag(new PropertyTag());
 		$doc->appendTag(new ReturnTag());
 		
 		$actual = [];
-		$expected = ['wurst', 'see', 'author', 'property', 'since', 'param', 'throws', 'return'];
+		$expected = ['wurst', 'see', 'author', 'property', 'since', 'param', 'param', 'throws', 'return'];
 		$sorted = $doc->getSortedTags();
 		foreach ($sorted as $tag) {
 			$actual[] = $tag->getTagName();

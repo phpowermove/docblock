@@ -11,5 +11,5 @@ class DeprecatedTag extends AbstractVersionTag {
 	public function __construct($content = '') {
 		parent::__construct('deprecated', $content);
 	}
-
+	
 }

@@ -5,7 +5,7 @@ namespace gossi\docblock;
 use gossi\docblock\tags\TagFactory;
 use gossi\docblock\tags\AbstractTag;
 
-class DocBlock {
+class Docblock {
 	
 	protected $shortDescription;
 	protected $longDescription;
@@ -77,7 +77,7 @@ class DocBlock {
 	}
 	
 	/**
-	 * Splits the DocBlock into a short description, long description and
+	 * Splits the Docblock into a short description, long description and
 	 * block of tags.
 	 * 
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock.php Original Method
@@ -320,6 +320,7 @@ class DocBlock {
 			'method', 'deprecated', 'since', 'version', 'var', 'type', 'param',
 			'throws', 'return'];
 
+		// there are never two of the same tags
 		if ($tagA == $tagB) {
 			return 0;
 		}

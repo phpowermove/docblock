@@ -5,7 +5,7 @@ namespace gossi\docblock\tags;
  * Represents tags which are in the format
  *   @tag [Version] [Description]
  */
-abstract class AbstractVersionTag extends AbstractTag {
+abstract class AbstractVersionTag extends AbstractDescriptionTag {
 	
 	/**
 	 * PCRE regular expression matching a version vector.

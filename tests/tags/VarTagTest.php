@@ -2,7 +2,7 @@
 namespace gossi\docblock\tests\tags;
 
 use gossi\docblock\tags\VarTag;
-use gossi\docblock\DocBlock;
+use gossi\docblock\Docblock;
 
 class VarTagTest extends \PHPUnit_Framework_TestCase {
 	
@@ -15,7 +15,7 @@ class VarTagTest extends \PHPUnit_Framework_TestCase {
 		$expected = '/**
  * @var mixed $foo bar
  */';
-		$docblock = new DocBlock();
+		$docblock = new Docblock();
 		$var = VarTag::create()
 			->setType('mixed')
 			->setVariable('foo')

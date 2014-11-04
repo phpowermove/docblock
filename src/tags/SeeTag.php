@@ -6,7 +6,7 @@ namespace gossi\docblock\tags;
  * 
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/see.html
  */
-class SeeTag extends AbstractTag {
+class SeeTag extends AbstractDescriptionTag {
 	
 	protected $reference;
 	
@@ -22,8 +22,7 @@ class SeeTag extends AbstractTag {
 	}
 	
 	public function toString() {
-		$ref = $this->reference ? $this->reference . ' ' : '';
-		return trim(sprintf('@see %s%s', $ref, $this->description));
+		return trim(sprintf('@see %s', trim($this->reference . ' ' .$this->description)));
 	}
 	
 	/**
