@@ -1,8 +1,8 @@
 <?php
 namespace gossi\docblock\tests;
 
-use gossi\collection\ArrayList;
 use gossi\docblock\TagNameComparator;
+use phootwork\collection\ArrayList;
 
 class TagNameComparatorTest extends \PHPUnit_Framework_TestCase {
 	

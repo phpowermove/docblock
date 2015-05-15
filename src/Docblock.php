@@ -4,8 +4,8 @@ namespace gossi\docblock;
 
 use gossi\docblock\tags\TagFactory;
 use gossi\docblock\tags\AbstractTag;
-use gossi\collection\ArrayList;
-use gossi\collection\Map;
+use phootwork\collection\ArrayList;
+use phootwork\collection\Map;
 
 class Docblock {
 	

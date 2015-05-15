@@ -1,8 +1,7 @@
 <?php
-
 namespace gossi\docblock;
 
-use gossi\common\Comparator;
+use phootwork\lang\Comparator;
 
 class TagNameComparator implements Comparator {
 	
