@@ -267,7 +267,18 @@ class Docblock {
 		$this->tags->add($tag);
 		return $this;
 	}
-	
+
+	/**
+	 * removes tags (by tag name)
+	 *
+	 * @param string $tagName
+	 */
+	public function removeTags($tagName = null) {
+		$this->tags = $this->tags->filter(function ($tag) use ($tagName) {
+			return $tagName !== $tag->getTagName();
+		});
+	}
+
 	/**
 	 * Checks whether a tag is present
 	 * 
