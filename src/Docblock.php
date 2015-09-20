@@ -390,7 +390,7 @@ class Docblock {
 	protected function writeLines($lines, $newline = false) {
 		$docblock = '';
 		if ($newline) {
-			$docblock .= " * \n";
+			$docblock .= " *\n";
 		}
 
 		foreach ($lines as $line) {
