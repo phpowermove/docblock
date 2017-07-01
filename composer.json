@@ -3,11 +3,19 @@
 	"type" : "library",
 	"description" : "PHP Docblock parser and generator. An API to read and write Docblocks.",
 	"license" : "MIT",
+	"authors" : [{
+			"name" : "Thomas Gossmann",
+			"homepage" : "http://gos.si"
+		}
+	],
 	"keywords" : [
 		"docblock",
 		"parser",
 		"generator"
 	],
+	"support" : {
+		"issues" : "https://github.com/gossi/docblock/issues"
+	},
 	"autoload" : {
 		"psr-4" : {
 			"gossi\\docblock\\" : "src"
@@ -19,11 +27,15 @@
 		}
 	},
 	"require" : {
-		"php" : ">=5.4",
-		"phootwork/collection" : "~1"
+		"php" : ">=5.6",
+		"phootwork/collection" : "^1.5"
 	},
 	"require-dev" : {
-		"phpunit/phpunit" : "~4",
-		"sami/sami" : "~1"
+		"phpunit/phpunit" : "^5.7",
+		"sami/sami" : "^4|^3"
+	},
+	"scripts" : {
+		"test" : "phpunit",
+		"api" : "sami.php update sami.php"
 	}
 }

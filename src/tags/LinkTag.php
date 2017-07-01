@@ -2,8 +2,6 @@
 
 namespace gossi\docblock\tags;
 
-use gossi\docblock\tags\AbstractDescriptionTag;
-
 /**
  * Represents a @link tag
  * 

@@ -1,9 +1,11 @@
 # Docblock
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.10182.png)](http://dx.doi.org/10.5281/zenodo.10182)
-[![Build Status](https://travis-ci.org/gossi/docblock.svg?branch=master)](https://travis-ci.org/gossi/docblock)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gossi/docblock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gossi/docblock/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/gossi/docblock/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gossi/docblock/?branch=master)
+[![License](https://img.shields.io/github/license/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
+[![Latest Stable Version](https://img.shields.io/packagist/v/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
+[![Total Downloads](https://img.shields.io/packagist/dt/gossi/docblock.svg?style=flat-square&colorB=007ec6)](https://packagist.org/packages/gossi/docblock)<br>
+[![Build Status](https://img.shields.io/scrutinizer/build/g/gossi/docblock.svg?style=flat-square)](https://travis-ci.org/gossi/docblock)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/gossi/docblock.svg?style=flat-square)](https://scrutinizer-ci.com/g/gossi/docblock)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/gossi/docblock.svg?style=flat-square)](https://scrutinizer-ci.com/g/gossi/docblock)
 
 PHP Docblock parser and generator. An API to read and write Docblocks.
 
@@ -11,18 +13,8 @@ PHP Docblock parser and generator. An API to read and write Docblocks.
 
 Install via Composer:
 
-```json
-{
-	"require": {
-		"gossi/docblock": "~1"
-	}
-}
 ```
-
-And inject the Composer autoloader into your source code:
-
-```php
-require_once 'path/to/vendor/autoload.php';
+composer require gossi/docblock
 ```
 
 ## Usage
@@ -123,20 +115,4 @@ Feel free to fork and submit a pull request (don't forget the tests) and I am ha
 
 ## Changelog
 
-Version 1.2 - *November, 4th 2014*
-
-* Renamed `DocBlock` to `Docblock`
-* Added License Tag
-* Added Link Tag
-
-Version 1.1 - *May, 28th 2014*
-
-* Added tag sorting for DocBlock::toString();
-
-Version 1.0.1 - *May, 28th 2014*
-
-* Don't wordwrap long lines anymore. Fixing fluent interface for AbstractTag::setDescription();
-
-Version 1.0 - *May, 28th 2014*
-
-* Initial release
+Refer to [Releases](https://github.com/gossi/docblock/releases)
