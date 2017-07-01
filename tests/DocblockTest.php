@@ -35,7 +35,7 @@ class DocblockTest extends \PHPUnit_Framework_TestCase {
 	public function testSimpleReadWrite() {
 		$expected = '/**
  * Short Description.
- * 
+ *
  * Long Description.
  */';
 		$docblock = new Docblock($expected);
@@ -96,12 +96,12 @@ class DocblockTest extends \PHPUnit_Framework_TestCase {
 	public function testMultilLongLineDescription() {
 		$expected = '/**
  * Short Description.
- * 
+ *
  * Long Description, which is very long and takes ages to reach the very last of the current line
  * before it brakes onto the next line
  * 
  * sdfasdf @tag
- * 
+ *
  * @tag2 wurst multi-
  *     linee
  */';
@@ -112,7 +112,7 @@ class DocblockTest extends \PHPUnit_Framework_TestCase {
 	public function testFromReflection() {
 		$expected = '/**
  * Short Description.
- * 
+ *
  * @author gossi
  */';
 		$reflection = new \ReflectionClass('\\gossi\\docblock\\tests\\fixtures\\ReflectionTestClass');
