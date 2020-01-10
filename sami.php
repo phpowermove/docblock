@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
 
 use Sami\Sami;
 use Symfony\Component\Finder\Finder;

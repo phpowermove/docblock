@@ -1,11 +1,12 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace gossi\docblock\tests\tags;
 
 use gossi\docblock\tags\VersionTag;
+use PHPUnit\Framework\TestCase;
 
-class VersionTagTest extends \PHPUnit_Framework_TestCase {
-	
-	public function testReadWrite() {
+class VersionTagTest extends TestCase {
+	public function testReadWrite(): void {
 		$version = new VersionTag('1.3.3.7 jupjup');
 		$this->assertEquals('@version 1.3.3.7 jupjup', $version->toString());
 		$this->assertEquals('jupjup', $version->getDescription());
@@ -13,5 +14,4 @@ class VersionTagTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame($version, $version->setVersion('3.14'));
 		$this->assertEquals('3.14', $version->getVersion());
 	}
-	
 }

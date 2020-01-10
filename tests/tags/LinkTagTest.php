@@ -1,39 +1,39 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace gossi\docblock\tests\tags;
 
 use gossi\docblock\tags\LinkTag;
+use PHPUnit\Framework\TestCase;
 
-class LinkTagTest extends \PHPUnit_Framework_TestCase {
-	
-	public function testReadWrite() {
+class LinkTagTest extends TestCase {
+	public function testReadWrite(): void {
 		$link = new LinkTag('http://example.com');
 		$this->assertEquals('http://example.com', $link->getUrl());
 		$this->assertEquals('@link http://example.com', $link->toString());
-		
-		$link = new LinkTag('http://example.com desc');		
+
+		$link = new LinkTag('http://example.com desc');
 		$this->assertEquals('http://example.com', $link->getUrl());
 		$this->assertEquals('desc', $link->getDescription());
 		$this->assertEquals('@link http://example.com desc', $link->toString());
-		
+
 		$link = new LinkTag('http://.example.com desc');
-		$this->assertNull($link->getUrl());
+		$this->assertEmpty($link->getUrl());
 		$this->assertEquals('http://.example.com desc', $link->getDescription());
 	}
 
-	public function testUrl() {
+	public function testUrl(): void {
 		$url = 'http://example.com';
 		$link = new LinkTag();
-		
+
 		$this->assertSame($link, $link->setUrl($url));
 		$this->assertEquals($url, $link->getUrl());
 	}
 
-	public function testDescription() {
+	public function testDescription(): void {
 		$desc = 'desc';
 		$link = new LinkTag();
-		
-		$this->assertSame($link, $link->setDescription($desc));		
+
+		$this->assertSame($link, $link->setDescription($desc));
 		$this->assertEquals($desc, $link->getDescription());
 	}
-
 }
