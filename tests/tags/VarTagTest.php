@@ -1,17 +1,18 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace gossi\docblock\tests\tags;
 
-use gossi\docblock\tags\VarTag;
 use gossi\docblock\Docblock;
+use gossi\docblock\tags\VarTag;
+use PHPUnit\Framework\TestCase;
 
-class VarTagTest extends \PHPUnit_Framework_TestCase {
-	
-	public function testReadWrite() {
+class VarTagTest extends TestCase {
+	public function testReadWrite(): void {
 		$var = new VarTag('Foo ...$bar');
 		$this->assertEquals('@var Foo ...$bar', $var->toString());
 	}
-	
-	public function testDocblock() {
+
+	public function testDocblock(): void {
 		$expected = '/**
  * @var mixed $foo bar
  */';
@@ -22,7 +23,7 @@ class VarTagTest extends \PHPUnit_Framework_TestCase {
 			->setDescription('bar')
 		;
 		$docblock->appendTag($var);
-		
+
 		$this->assertEquals($expected, $docblock->toString());
 	}
 }

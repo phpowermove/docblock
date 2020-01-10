@@ -1,20 +1,21 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace gossi\docblock\tags;
 
 /**
  * Tag Factory
  */
 class TagFactory {
-	
+
 	/**
 	 * @var array An array with a tag as a key, and an FQCN as the handling class.
 	 */
-	private static $tagClassMap = array(
+	private static $tagClassMap = [
 			'author' => '\gossi\docblock\tags\AuthorTag',
 			'deprecated' => '\gossi\docblock\tags\DeprecatedTag',
 // 			'example' => '\gossi\docblock\tags\ExampleTag',
-// 			'link' => '\gossi\docblock\tags\LinkTag',
-// 			'method' => '\gossi\docblock\tags\MethodTag',
+			'link' => '\gossi\docblock\tags\LinkTag',
+			'method' => '\gossi\docblock\tags\MethodTag',
 			'param' => '\gossi\docblock\tags\ParamTag',
 			'property-read' => '\gossi\docblock\tags\PropertyReadTag',
 			'property' => '\gossi\docblock\tags\PropertyTag',
@@ -29,22 +30,26 @@ class TagFactory {
 // 			'uses' => '\gossi\docblock\tags\UsesTag',
 			'var' => '\gossi\docblock\tags\VarTag',
 			'version' => '\gossi\docblock\tags\VersionTag'
-	);
-	
+	];
+
 	/**
 	 * Creates a new tag instance on the given name
 	 * 
 	 * @param string $tagName
 	 * @param string $content
+	 *
 	 * @return AbstractTag
+	 *
+	 * @psalm-suppress LessSpecificReturnStatement
+	 * @psalm-suppress MoreSpecificReturnType
 	 */
-	public static function create($tagName, $content = '') {
+	public static function create(string $tagName, string $content = ''): AbstractTag {
 		if (isset(self::$tagClassMap[$tagName])) {
 			$class = self::$tagClassMap[$tagName];
+
 			return new $class($content);
 		} else {
 			return new UnknownTag($tagName, $content);
 		}
 	}
-	
 }

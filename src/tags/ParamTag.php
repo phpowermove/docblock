@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace gossi\docblock\tags;
 
 /**
@@ -7,9 +8,7 @@ namespace gossi\docblock\tags;
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/param.html
  */
 class ParamTag extends AbstractVarTypeTag {
-
-	public function __construct($content = '') {
+	public function __construct(string $content = '') {
 		parent::__construct('param', $content);
 	}
-	
 }
