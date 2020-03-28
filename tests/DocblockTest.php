@@ -163,4 +163,35 @@ class DocblockTest extends TestCase {
 		$doc->appendTag(new SeeTag());
 		$this->assertFalse($doc->isEmpty());
 	}
+
+	public function testRemoveTag(): void {
+		$expected = '/**
+ * @see https://github.com/gossi/docblock
+ * @author gossi
+ * @author KH
+ * @since 28.5.2014
+ */';
+		$docblock = new Docblock($expected);
+
+		$tags = $docblock->getTags();
+		$this->assertEquals(4, $tags->size());
+		$this->assertTrue($docblock->hasTag('see'));
+		$this->assertTrue($docblock->hasTag('author'));
+		$this->assertTrue($docblock->hasTag('since'));
+
+		$docblock->removeTags('author');
+
+		$tags = $docblock->getTags();
+		$this->assertEquals(2, $tags->size());
+		$this->assertTrue($docblock->hasTag('see'));
+		$this->assertTrue($docblock->hasTag('since'));
+		$this->assertFalse($docblock->hasTag('author'));
+
+		$docblock->removeTags('since');
+
+		$tags = $docblock->getTags();
+		$this->assertEquals(1, $tags->size());
+		$this->assertTrue($docblock->hasTag('see'));
+		$this->assertFalse($docblock->hasTag('since'));
+	}
 }

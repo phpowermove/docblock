@@ -2,6 +2,8 @@
 
 namespace gossi\docblock\tags;
 
+use phootwork\lang\Text;
+
 /**
  * Represents tags which are in the format
  *
@@ -74,28 +76,37 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	}
 
 	/**
-	 * Returnst the variable
+	 * Returns the variable name, starting with `$`
 	 * 
 	 * @return string the variable name
 	 */
-	public function getVariable(): string {
+	public function getExpression(): string {
 		return $this->variable;
 	}
 
 	/**
-	 * Sets the variable
+	 * Sets the variable name
 	 *
 	 * @param string $variable the new variable name
 	 *
 	 * @return $this        	
 	 */
 	public function setVariable(string $variable): self {
-		if ($variable[0] !== '$') {
-			$variable = '$' . $variable;
-		}
-		$this->variable = $variable;
+		$variable = new Text($variable);
+		$this->variable = $variable->ensureStart('$')->toString();
 
 		return $this;
+	}
+
+	/**
+	 * Returns the variable name
+	 *
+	 * @return string the variable name
+	 */
+	public function getVariable(): string {
+		$variable = new Text($this->variable);
+
+		return $variable->slice(1)->toString();
 	}
 
 	/**

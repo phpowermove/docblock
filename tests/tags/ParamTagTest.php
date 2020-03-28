@@ -10,7 +10,7 @@ class ParamTagTest extends TestCase {
 		$param = new ParamTag('string $a the string');
 
 		$this->assertEquals('string', $param->getType());
-		$this->assertEquals('$a', $param->getVariable());
+		$this->assertEquals('a', $param->getVariable());
 		$this->assertEquals('the string', $param->getDescription());
 		$this->assertFalse($param->isVariadic());
 		$this->assertEquals('@param string $a the string', $param->toString());
@@ -35,7 +35,7 @@ class ParamTagTest extends TestCase {
 		$param = new ParamTag();
 
 		$this->assertSame($param, $param->setVariable($variable));
-		$this->assertEquals($variable, $param->getVariable());
+		$this->assertEquals($variable, $param->getExpression());
 	}
 
 	public function testVariadic(): void {

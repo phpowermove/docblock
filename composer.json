@@ -29,8 +29,8 @@
 	},
 	"require" : {
 		"php" : ">=7.2",
-		"phootwork/lang": "2.0",
-		"phootwork/collection" : "2.0"
+		"phootwork/lang": "^2.0",
+		"phootwork/collection" : "^2.0"
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "^8.0",
