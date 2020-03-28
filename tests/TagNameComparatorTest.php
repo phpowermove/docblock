@@ -13,4 +13,11 @@ class TagNameComparatorTest extends TestCase {
 
 		$this->assertEquals(['see', 'author', 'author', 'since', 'param'], $list->toArray());
 	}
+
+	public function testComparisonWithInvalidTag(): void {
+		$list = new ArrayList(['invalid_tag', 'author', 'since', 'see', 'param', 'author']);
+		$list->sort(new TagNameComparator());
+
+		$this->assertEquals(['invalid_tag', 'see', 'author', 'author', 'since', 'param'], $list->toArray());
+	}
 }
