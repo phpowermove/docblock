@@ -3,7 +3,8 @@
 [![License](https://img.shields.io/github/license/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
 [![Latest Stable Version](https://img.shields.io/packagist/v/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
 [![Total Downloads](https://img.shields.io/packagist/dt/gossi/docblock.svg?style=flat-square&colorB=007ec6)](https://packagist.org/packages/gossi/docblock)<br>
-[![Build Status](https://img.shields.io/scrutinizer/build/g/gossi/docblock.svg?style=flat-square)](https://travis-ci.org/gossi/docblock)
+![Tests](https://github.com/gossi/docblock/workflows/Docblock%20Test%20Suite/badge.svg)
+![Coverage report](https://github.com/phootwork/phootwork/workflows/Coverage/badge.svg)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/gossi/docblock.svg?style=flat-square)](https://scrutinizer-ci.com/g/gossi/docblock)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/gossi/docblock.svg?style=flat-square)](https://scrutinizer-ci.com/g/gossi/docblock)
 
