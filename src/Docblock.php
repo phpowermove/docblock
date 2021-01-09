@@ -194,7 +194,7 @@ class Docblock {
 				if ($this->isTagLine($line) || count($result) == 0) {
 					$result[] = $line;
 				} else {
-					$result[count($result) - 1] .= PHP_EOL . $line;
+					$result[count($result) - 1] .= "\n" . $line;
 				}
 			}
 
