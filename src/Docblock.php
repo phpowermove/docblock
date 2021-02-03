@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock;
 
@@ -14,18 +21,10 @@ use ReflectionFunctionAbstract;
 use ReflectionProperty;
 
 class Docblock {
-
-	/** @var string */
-	protected $shortDescription;
-
-	/** @var string */
-	protected $longDescription;
-
-	/** @var ArrayList */
-	protected $tags;
-
-	/** @var null|Comparator */
-	protected $comparator = null;
+	protected string $shortDescription;
+	protected string $longDescription;
+	protected ArrayList $tags;
+	protected ?Comparator $comparator = null;
 
 	const REGEX_TAGNAME = '[\w\-\_\\\\]+';
 
@@ -36,7 +35,7 @@ class Docblock {
 	 *
 	 * @return $this
 	 */
-	public static function create($docblock = ''): self {
+	public static function create(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock = ''): self {
 		return new static($docblock);
 	}
 
@@ -45,7 +44,7 @@ class Docblock {
 	 * 
 	 * @param ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock a docblock to parse
 	 */
-	public function __construct($docblock = '') {
+	final public function __construct(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock = '') {
 		$this->tags = new ArrayList();
 		$this->parse($docblock);
 	}
@@ -55,18 +54,10 @@ class Docblock {
 	 *
 	 * @param ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock
 	 *
-	 * @throws InvalidArgumentException if there is no getDocCommect() method available
+	 * @throws InvalidArgumentException if there is no getDocComment() method available
 	 */
-	protected function parse($docblock): void {
-		if (is_object($docblock)) {
-			if (!method_exists($docblock, 'getDocComment')) {
-				throw new InvalidArgumentException('Invalid object passed; the given ' .
-						'reflector must support the getDocComment method');
-			}
-
-			$docblock = $docblock->getDocComment();
-		}
-
+	protected function parse(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock): void {
+		$docblock = is_object($docblock) ? $docblock->getDocComment() : $docblock;
 		$docblock = $this->cleanInput($docblock);
 
 		[$short, $long, $tags] = $this->splitDocBlock($docblock);
@@ -115,7 +106,7 @@ class Docblock {
 	protected function splitDocBlock(string $comment): array {
 		$matches = [];
 
-		if (strpos($comment, '@') === 0) {
+		if (str_starts_with($comment, '@')) {
 			$matches = ['', '', $comment];
 		} else {
 			// clears all extra horizontal whitespace from the line endings
@@ -186,7 +177,7 @@ class Docblock {
 	 */
 	protected function parseTags(string $tags): void {
 		$tags = trim($tags);
-		if (!empty($tags)) {
+		if ($tags !== '') {
 
 			// sanitize lines
 			$result = [];
@@ -216,7 +207,7 @@ class Docblock {
 	 * @return bool
 	 */
 	protected function isTagLine(string $line): bool {
-		return isset($line[0]) && $line[0] == '@';
+		return $line[0] === '@';
 	}
 
 	/**
@@ -235,7 +226,7 @@ class Docblock {
 		}
 
 		$tagName = $matches[1];
-		$content = isset($matches[2]) ? $matches[2] : '';
+		$content = $matches[2] ?? '';
 
 		return TagFactory::create($tagName, $content);
 	}
@@ -316,9 +307,9 @@ class Docblock {
 	 * @return bool
 	 */
 	public function hasTag(string $tagName): bool {
-		return $this->tags->search($tagName, function (AbstractTag $tag, string $query): bool {
-			return $tag->getTagName() == $query;
-		});
+		return $this->tags->search($tagName,
+			fn (AbstractTag $tag, string $query): bool => $tag->getTagName() == $query
+		);
 	}
 
 	/**
@@ -328,9 +319,9 @@ class Docblock {
 	 *
 	 * @return ArrayList the tags
 	 */
-	public function getTags(string $tagName = null): ArrayList {
+	public function getTags(string $tagName = ''): ArrayList {
 		return $this->tags->filter(function (AbstractTag $tag) use ($tagName): bool {
-			return $tagName === null || $tag->getTagName() == $tagName;
+			return $tagName === '' || $tag->getTagName() === $tagName;
 		});
 	}
 
@@ -340,9 +331,7 @@ class Docblock {
 	 * @return ArrayList
 	 */
 	public function getSortedTags(): ArrayList {
-		if ($this->comparator === null) {
-			$this->comparator = new TagNameComparator();
-		}
+		$this->comparator = $this->comparator ?? new TagNameComparator();
 
 		// 1) group by tag name
 		$group = new Map();
@@ -372,9 +361,9 @@ class Docblock {
 	 * @return bool
 	 */
 	public function isEmpty(): bool {
-		return empty($this->shortDescription)
-				&& empty($this->longDescription)
-				&& $this->tags->size() == 0;
+		return $this->shortDescription === ''
+				&& $this->longDescription === ''
+				&& $this->tags->size() === 0;
 	}
 
 	/**
@@ -387,13 +376,13 @@ class Docblock {
 
 		// short description
 		$short = trim($this->shortDescription);
-		if (!empty($short)) {
+		if ($short !== '') {
 			$docblock .= $this->writeLines(explode("\n", $short));
 		}
 
 		// short description
 		$long = trim($this->longDescription);
-		if (!empty($long)) {
+		if ($long !== '') {
 			$docblock .= $this->writeLines(explode("\n", $long), !empty($short));
 		}
 
@@ -403,7 +392,7 @@ class Docblock {
 		});
 
 		if (!$tags->isEmpty()) {
-			$docblock .= $this->writeLines($tags->toArray(), !empty($short) || !empty($long));
+			$docblock .= $this->writeLines($tags->toArray(), $short !== '' || $long !== '');
 		}
 
 		$docblock .= ' */';
@@ -426,13 +415,13 @@ class Docblock {
 		}
 
 		foreach ($lines as $line) {
-			if (strpos($line, "\n")) {
+			if (str_contains($line, "\n")) {
 				$sublines = explode("\n", $line);
 				$line = array_shift($sublines);
-				$docblock .= ' * ' . $line . "\n";
+				$docblock .= " * $line\n";
 				$docblock .= $this->writeLines($sublines);
 			} else {
-				$docblock .= ' * ' . $line . "\n";
+				$docblock .= " * $line\n";
 			}
 		}
 
@@ -444,7 +433,7 @@ class Docblock {
 	 * 
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->toString();
 	}
 }

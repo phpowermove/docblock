@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -8,12 +15,8 @@ namespace gossi\docblock\tags;
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/license.html
  */
 class LicenseTag extends AbstractTag {
-
-	/** @var  string */
-	private $url = '';
-
-	/** @var string */
-	private $license = '';
+	private string $url = '';
+	private string $license = '';
 
 	/**
 	 * Creates a new tag
@@ -30,7 +33,7 @@ class LicenseTag extends AbstractTag {
 		$urlCandidate = $parts[0];
 		if (preg_match(LinkTag::URL_REGEX, $urlCandidate)) {
 			$this->url = $urlCandidate;
-			$this->license = isset($parts[1]) ? $parts[1] : '';
+			$this->license = $parts[1] ?? '';
 		} else {
 			$this->license = $content;
 		}

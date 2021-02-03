@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -10,7 +17,7 @@ class TagFactory {
 	/**
 	 * @var array An array with a tag as a key, and an FQCN as the handling class.
 	 */
-	private static $tagClassMap = [
+	private static array $tagClassMap = [
 			'author' => '\gossi\docblock\tags\AuthorTag',
 			'deprecated' => '\gossi\docblock\tags\DeprecatedTag',
 // 			'example' => '\gossi\docblock\tags\ExampleTag',
@@ -39,17 +46,14 @@ class TagFactory {
 	 * @param string $content
 	 *
 	 * @return AbstractTag
-	 *
-	 * @psalm-suppress LessSpecificReturnStatement
-	 * @psalm-suppress MoreSpecificReturnType
 	 */
 	public static function create(string $tagName, string $content = ''): AbstractTag {
 		if (isset(self::$tagClassMap[$tagName])) {
 			$class = self::$tagClassMap[$tagName];
 
 			return new $class($content);
-		} else {
-			return new UnknownTag($tagName, $content);
 		}
+
+		return new UnknownTag($tagName, $content);
 	}
 }

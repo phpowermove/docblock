@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -8,9 +15,7 @@ namespace gossi\docblock\tags;
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/link.html
  */
 class LinkTag extends AbstractDescriptionTag {
-
-	/** @var string */
-	private $url = '';
+	private string $url = '';
 
 	public function __construct(string $content = '') {
 		parent::__construct('link', $content);
@@ -31,7 +36,7 @@ class LinkTag extends AbstractDescriptionTag {
 		$urlCandidate = $parts[0];
 		if (preg_match(self::URL_REGEX, $urlCandidate)) {
 			$this->url = $urlCandidate;
-			$this->setDescription(isset($parts[1]) ? $parts[1] : '');
+			$this->setDescription($parts[1] ?? '');
 		} else {
 			$this->setDescription($content);
 		}

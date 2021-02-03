@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -19,11 +26,8 @@ class AuthorTag extends AbstractTag {
 	 */
 	const REGEX_AUTHOR_EMAIL = '[^\>]*';
 
-	/** @var string */
-	protected $name = '';
-
-	/** @var string */
-	protected $email = '';
+	protected string $name = '';
+	protected string $email = '';
 
 	public function __construct(string $content = '') {
 		parent::__construct('author', $content);
@@ -47,7 +51,7 @@ class AuthorTag extends AbstractTag {
 	}
 
 	public function toString(): string {
-		$email = !empty($this->email) ? '<' . $this->email . '>' : '';
+		$email = $this->email !== '' ? '<' . $this->email . '>' : '';
 
 		return trim(sprintf('@author %s %s', $this->name, $email));
 	}

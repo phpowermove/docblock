@@ -1,8 +1,13 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
-
-use phootwork\lang\Text;
 
 /**
  * Represents tags which are in the format
@@ -10,12 +15,8 @@ use phootwork\lang\Text;
  *   @tag [Type] [Variable] [Description]
  */
 abstract class AbstractVarTypeTag extends AbstractTypeTag {
-
-	/** @var string */
-	protected $variable = '';
-
-	/** @var bool */
-	protected $isVariadic = false;
+	protected string $variable = '';
+	protected bool $isVariadic = false;
 
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php Original Method: setContent()
@@ -68,8 +69,8 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	}
 
 	public function toString(): string {
-		$type = !empty($this->type) ? $this->type . ' ' : '';
-		$var = !empty($this->variable)
+		$type = $this->type === '' ? '' : $this->type . ' ';
+		$var = $this->variable !== ''
 			? ($this->isVariadic ? '...' : '') . $this->variable . ' ' : '';
 
 		return trim(sprintf('@%s %s%s%s', $this->tagName, $type, $var, $this->description));
@@ -92,8 +93,7 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	 * @return $this        	
 	 */
 	public function setVariable(string $variable): self {
-		$variable = new Text($variable);
-		$this->variable = $variable->ensureStart('$')->toString();
+		$this->variable = str_starts_with($variable, '$') ? $variable : "\$$variable";
 
 		return $this;
 	}
