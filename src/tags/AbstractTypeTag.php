@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -8,15 +15,13 @@ namespace gossi\docblock\tags;
  *   @tag [Type] [Description] 
  */
 abstract class AbstractTypeTag extends AbstractDescriptionTag {
-
-	/** @var string */
-	protected $type = '';
+	protected string $type = '';
 
 	protected function parse(string $content): void {
 		$parts = preg_split('/\s+/Su', $content, 2);
 
 		$this->type = $parts[0];
-		$this->setDescription(isset($parts[1]) ? $parts[1] : '');
+		$this->setDescription($parts[1] ?? '');
 	}
 
 	public function toString(): string {

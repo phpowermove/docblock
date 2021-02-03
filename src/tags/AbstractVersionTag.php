@@ -1,4 +1,11 @@
 <?php declare(strict_types=1);
+/*
+ * This file is part of the Docblock package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license MIT License
+ */
 
 namespace gossi\docblock\tags;
 
@@ -25,12 +32,13 @@ abstract class AbstractVersionTag extends AbstractDescriptionTag {
         [^\s\:]+\:\s*\$[^\$]+\$
     )';
 
-	/** @var string */
-	protected $version = '';
+	protected string $version = '';
 
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php Original Method: setContent()
 	 * @see \gossi\docblock\tags\AbstractTag::parse()
+	 *
+	 * @param string $content
 	 */
 	protected function parse(string $content): void {
 		$matches = [];
@@ -45,7 +53,7 @@ abstract class AbstractVersionTag extends AbstractDescriptionTag {
 				$content,
 				$matches)) {
 			$this->version = $matches[1];
-			$this->setDescription(isset($matches[2]) ? $matches[2] : '');
+			$this->setDescription($matches[2] ?? '');
 		}
 	}
 
