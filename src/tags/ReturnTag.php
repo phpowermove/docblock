@@ -15,7 +15,4 @@ namespace gossi\docblock\tags;
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/return.html
  */
 class ReturnTag extends AbstractTypeTag {
-	public function __construct(string $content = '') {
-		parent::__construct('return', $content);
-	}
 }

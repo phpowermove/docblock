@@ -17,10 +17,6 @@ namespace gossi\docblock\tags;
 class LinkTag extends AbstractDescriptionTag {
 	private string $url = '';
 
-	public function __construct(string $content = '') {
-		parent::__construct('link', $content);
-	}
-
 	/**
 	 * Url Regex by @diegoperini
 	 * 

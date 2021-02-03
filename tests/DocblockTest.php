@@ -134,7 +134,7 @@ class DocblockTest extends TestCase {
 		$doc->appendTag(new AuthorTag());
 		$doc->appendTag(new SeeTag());
 		$doc->appendTag(new ThrowsTag());
-		$doc->appendTag(new UnknownTag('wurst'));
+		$doc->appendTag((new UnknownTag())->setTagName('wurst'));
 		$doc->appendTag(new SinceTag());
 		$doc->appendTag(new ParamTag());
 		$doc->appendTag(new ParamTag());

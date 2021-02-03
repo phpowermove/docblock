@@ -15,7 +15,4 @@ namespace gossi\docblock\tags;
  * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/method.html
  */
 class MethodTag extends AbstractVarTypeTag {
-	public function __construct(string $content = '') {
-		parent::__construct('method', $content);
-	}
 }

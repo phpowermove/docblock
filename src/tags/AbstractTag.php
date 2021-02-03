@@ -9,6 +9,8 @@
 
 namespace gossi\docblock\tags;
 
+use phootwork\lang\Text;
+
 abstract class AbstractTag implements \Stringable {
 	protected string $tagName = '';
 
@@ -26,11 +28,15 @@ abstract class AbstractTag implements \Stringable {
 	/**
 	 * Creates a new tag instance
 	 *
-	 * @param string $tagName
 	 * @param string $content
 	 */
-	protected function __construct(string $tagName, string $content = '') {
-		$this->tagName = $tagName;
+	final public function __construct(string $content = '') {
+		$this->tagName = Text::create(get_class($this))
+			->trimStart('gossi\\docblock\\tags\\')
+			->trimEnd('Tag')
+			->toKebabCase()
+			->toString()
+		;
 		$this->parse($content);
 	}
 
@@ -41,6 +47,12 @@ abstract class AbstractTag implements \Stringable {
 	 */
 	public function getTagName(): string {
 		return $this->tagName;
+	}
+
+	public function setTagName(string $tagName): self {
+		$this->tagName = $tagName;
+
+		return $this;
 	}
 
 	/**

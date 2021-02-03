@@ -35,7 +35,7 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	/**
 	 * Parses the type from the extracted parts
 	 * 
-	 * @param array $parts
+	 * @param string[] $parts
 	 */
 	private function parseType(array &$parts): void {
 		// if the first item that is encountered is not a variable; it is a type
@@ -51,7 +51,7 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	/**
 	 * Parses the variable from the extracted parts
 	 *
-	 * @param array $parts
+	 * @param string[] $parts
 	 */
 	private function parseVariable(array &$parts): void {
 		// if the next item starts with a $ or ...$ it must be the variable name

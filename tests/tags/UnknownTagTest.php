@@ -7,9 +7,10 @@ use PHPUnit\Framework\TestCase;
 
 class UnknownTagTest extends TestCase {
 	public function testReadWrite(): void {
-		$unknown = new UnknownTag('my-tag', 'desscription');
+		$unknown = new UnknownTag('description');
+		$unknown = $unknown->setTagName('my-tag');
 
-		$this->assertEquals('@my-tag desscription', $unknown->toString());
+		$this->assertEquals('@my-tag description', $unknown->toString());
 		$this->assertEquals('my-tag', $unknown->getTagName());
 
 		$this->assertEquals($unknown->toString(), '' . $unknown);
