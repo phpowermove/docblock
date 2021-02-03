@@ -18,15 +18,6 @@ class LicenseTag extends AbstractTag {
 	private string $url = '';
 	private string $license = '';
 
-	/**
-	 * Creates a new tag
-	 * 
-	 * @param string $content the tags content
-	 */
-	public function __construct(string $content = '') {
-		parent::__construct('license', $content);
-	}
-
 	protected function parse(string $content): void {
 		$parts = preg_split('/\s+/Su', $content, 2);
 

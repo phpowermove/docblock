@@ -29,10 +29,6 @@ class AuthorTag extends AbstractTag {
 	protected string $name = '';
 	protected string $email = '';
 
-	public function __construct(string $content = '') {
-		parent::__construct('author', $content);
-	}
-
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php Original Method: setContent()
 	 * @see \gossi\docblock\tags\AbstractTag::parse()

@@ -9,36 +9,12 @@
 
 namespace gossi\docblock\tags;
 
+use phootwork\lang\Text;
+
 /**
  * Tag Factory
  */
 class TagFactory {
-
-	/**
-	 * @var array An array with a tag as a key, and an FQCN as the handling class.
-	 */
-	private static array $tagClassMap = [
-			'author' => '\gossi\docblock\tags\AuthorTag',
-			'deprecated' => '\gossi\docblock\tags\DeprecatedTag',
-// 			'example' => '\gossi\docblock\tags\ExampleTag',
-			'link' => '\gossi\docblock\tags\LinkTag',
-			'method' => '\gossi\docblock\tags\MethodTag',
-			'param' => '\gossi\docblock\tags\ParamTag',
-			'property-read' => '\gossi\docblock\tags\PropertyReadTag',
-			'property' => '\gossi\docblock\tags\PropertyTag',
-			'property-write' => '\gossi\docblock\tags\PropertyWriteTag',
-			'return' => '\gossi\docblock\tags\ReturnTag',
-			'see' => '\gossi\docblock\tags\SeeTag',
-			'since' => '\gossi\docblock\tags\SinceTag',
-// 			'source' => '\gossi\docblock\tags\SourceTag',
-			'throw' => '\gossi\docblock\tags\ThrowsTag',
-			'throws' => '\gossi\docblock\tags\ThrowsTag',
-			'type' => '\gossi\docblock\tags\TypeTag',
-// 			'uses' => '\gossi\docblock\tags\UsesTag',
-			'var' => '\gossi\docblock\tags\VarTag',
-			'version' => '\gossi\docblock\tags\VersionTag'
-	];
-
 	/**
 	 * Creates a new tag instance on the given name
 	 * 
@@ -46,14 +22,23 @@ class TagFactory {
 	 * @param string $content
 	 *
 	 * @return AbstractTag
+	 *
+	 * @psalm-suppress MoreSpecificReturnType
+	 * @psalm-suppress LessSpecificReturnStatement
 	 */
 	public static function create(string $tagName, string $content = ''): AbstractTag {
-		if (isset(self::$tagClassMap[$tagName])) {
-			$class = self::$tagClassMap[$tagName];
+		$class = Text::create($tagName)
+			->toStudlyCase()
+			->prepend('gossi\\docblock\\tags\\')
+			->append('Tag')
+			->toString()
+		;
 
-			return new $class($content);
+		if (!class_exists($class)) {
+			return (new UnknownTag($content))->setTagName($tagName);
 		}
 
-		return new UnknownTag($tagName, $content);
+		/** @psalm-suppress MixedMethodCall */
+		return new $class($content);
 	}
 }

@@ -335,12 +335,15 @@ class Docblock {
 
 		// 1) group by tag name
 		$group = new Map();
+		/** @var AbstractTag $tag */
 		foreach ($this->tags->toArray() as $tag) {
 			if (!$group->has($tag->getTagName())) {
 				$group->set($tag->getTagName(), new ArrayList());
 			}
 
-			$group->get($tag->getTagName())->add($tag);
+			/** @var ArrayList $list */
+			$list = $group->get($tag->getTagName());
+			$list->add($tag);
 		}
 
 		// 2) Sort the group by tag name
@@ -348,6 +351,7 @@ class Docblock {
 
 		// 3) flatten the group
 		$sorted = new ArrayList();
+		/** @var array $tags */
 		foreach ($group->values()->toArray() as $tags) {
 			$sorted->add(...$tags);
 		}
@@ -392,6 +396,7 @@ class Docblock {
 		});
 
 		if (!$tags->isEmpty()) {
+			/** @psalm-suppress MixedArgumentTypeCoercion */
 			$docblock .= $this->writeLines($tags->toArray(), $short !== '' || $long !== '');
 		}
 

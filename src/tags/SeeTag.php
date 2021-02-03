@@ -17,10 +17,6 @@ namespace gossi\docblock\tags;
 class SeeTag extends AbstractDescriptionTag {
 	protected string $reference;
 
-	public function __construct(string $content = '') {
-		parent::__construct('see', $content);
-	}
-
 	protected function parse(string $content): void {
 		$parts = preg_split('/\s+/Su', $content, 2);
 
