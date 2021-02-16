@@ -44,4 +44,10 @@ class ParamTagTest extends TestCase {
 		$this->assertSame($param, $param->setVariadic(true));
 		$this->assertTrue($param->isVariadic());
 	}
+
+	public function testGetVariableNameOnEmptyTag(): void {
+		$param = new ParamTag();
+
+		$this->assertEquals('', $param->getVariable());
+	}
 }

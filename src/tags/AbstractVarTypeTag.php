@@ -106,7 +106,7 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	public function getVariable(): string {
 		$variable = new Text($this->variable);
 
-		return $variable->slice(1)->toString();
+		return $variable->isEmpty() ? '' : $variable->slice(1)->toString();
 	}
 
 	/**
