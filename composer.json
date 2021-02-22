@@ -23,8 +23,7 @@
 	},
 	"autoload-dev" : {
 		"psr-4" : {
-			"gossi\\docblock\\tests\\" : "tests/",
-			"gossi\\docblock\\scripts\\": "scripts/"
+			"gossi\\docblock\\tests\\" : "tests/"
 		}
 	},
 	"require" : {
@@ -48,8 +47,7 @@
 		"coverage:clover": "@test --coverage-clover clover.xml",
 		"cs": "php-cs-fixer fix -v --diff --dry-run",
 		"cs-fix": "php-cs-fixer fix -v --diff",
-		"test": "phpunit",
-		"api": "gossi\\docblock\\scripts\\Api::generateApi"
+		"test": "phpunit --colors=always"
 	},
 	"scripts-descriptions": {
 		"analytics": "Run static analysis tool",
@@ -58,7 +56,6 @@
 		"coverage:clover": "Create a code coverage report in xml format, into clover.xml file",
 		"cs": "Run code style analysis, without fixing errors",
 		"cs-fix": "Run code style analysis and fix errors",
-		"test": "Run all tests",
-		"api": "Download `sami.phar` archive and generate the api documentation for this library"
+		"test": "Run all tests"
 	}
 }

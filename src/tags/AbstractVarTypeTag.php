@@ -9,6 +9,8 @@
 
 namespace gossi\docblock\tags;
 
+use phootwork\lang\Text;
+
 /**
  * Represents tags which are in the format
  *
