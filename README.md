@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/github/license/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
 [![Latest Stable Version](https://img.shields.io/packagist/v/gossi/docblock.svg?style=flat-square)](https://packagist.org/packages/gossi/docblock)
-[![Total Downloads](https://img.shields.io/packagist/dt/gossi/docblock.svg?style=flat-square&colorB=007ec6)](https://packagist.org/packages/gossi/docblock)<br>
+[![Total Downloads](https://img.shields.io/packagist/dt/gossi/docblock.svg?style=flat-square&colorB=007ec6)](https://packagist.org/packages/gossi/docblock)
 ![Tests](https://github.com/gossi/docblock/workflows/Docblock%20Test%20Suite/badge.svg)
 ![Coverage report](https://github.com/phootwork/phootwork/workflows/Coverage/badge.svg)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/gossi/docblock.svg?style=flat-square)](https://scrutinizer-ci.com/g/gossi/docblock)
@@ -105,6 +105,10 @@ or if you are in a write-context, the magical `__toString()` will take care of i
 ```php
 echo $docblock;
 ```
+
+## Documentation Api
+
+See https://gossi.github.io/docblock
 
 ## Contributing
 
