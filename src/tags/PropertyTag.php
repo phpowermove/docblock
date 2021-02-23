@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @property tag.
+ * Represents the `@property` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/property.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/property-read.html
  */
 class PropertyTag extends AbstractVarTypeTag {
 }

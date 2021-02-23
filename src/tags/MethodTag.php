@@ -12,7 +12,7 @@ namespace gossi\docblock\tags;
 /**
  * Represents the `@method` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/method.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/method.html
  */
 class MethodTag extends AbstractVarTypeTag {
 }

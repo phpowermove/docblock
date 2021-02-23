@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @property-write tag.
+ * Represents the `@property-write` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/property-write.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/property-write.html
  */
 class PropertyWriteTag extends AbstractVarTypeTag {
 }

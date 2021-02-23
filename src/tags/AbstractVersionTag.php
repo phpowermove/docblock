@@ -12,7 +12,7 @@ namespace gossi\docblock\tags;
 /**
  * Represents tags which are in the format
  *
- *   @tag [Version] [Description]
+ *   `@tag [Version] [Description]`
  */
 abstract class AbstractVersionTag extends AbstractDescriptionTag {
 

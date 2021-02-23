@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @version tag.
+ * Represents the `@version` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/version.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/version.html
  */
 class VersionTag extends AbstractVersionTag {
 }

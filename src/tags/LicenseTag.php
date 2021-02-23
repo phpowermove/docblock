@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents a @license tag.
+ * Represents a `@license` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/license.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/license.html
  */
 class LicenseTag extends AbstractTag {
 	private string $url = '';

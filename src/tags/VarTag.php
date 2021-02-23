@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @var tag.
+ * Represents the `@var` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/var.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/var.html
  */
 class VarTag extends AbstractVarTypeTag {
 }

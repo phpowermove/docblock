@@ -12,7 +12,7 @@ namespace gossi\docblock\tags;
 /**
  * Represents tags which are in the format
  *
- *   @tag [Type] [Description] 
+ *   `@tag [Type] [Description]`
  */
 abstract class AbstractTypeTag extends AbstractDescriptionTag {
 	protected string $type = '';

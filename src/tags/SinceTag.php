@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @since tag.
+ * Represents the `@since` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/since.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/since.html
  */
 class SinceTag extends AbstractVersionTag {
 }

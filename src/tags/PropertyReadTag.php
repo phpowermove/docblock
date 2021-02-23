@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @property-read tag.
+ * Represents the `@property-read` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/property-read.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/property-read.html
  */
 class PropertyReadTag extends AbstractVarTypeTag {
 }

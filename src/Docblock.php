@@ -20,7 +20,7 @@ use ReflectionClass;
 use ReflectionFunctionAbstract;
 use ReflectionProperty;
 
-class Docblock {
+class Docblock implements \Stringable {
 	protected string $shortDescription;
 	protected string $longDescription;
 	protected ArrayList $tags;
@@ -35,7 +35,7 @@ class Docblock {
 	 *
 	 * @return $this
 	 */
-	public static function create(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock = ''): self {
+	public static function create(ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock = ''): self {
 		return new static($docblock);
 	}
 
@@ -44,7 +44,7 @@ class Docblock {
 	 * 
 	 * @param ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock a docblock to parse
 	 */
-	final public function __construct(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock = '') {
+	final public function __construct(ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock = '') {
 		$this->tags = new ArrayList();
 		$this->parse($docblock);
 	}
@@ -56,7 +56,7 @@ class Docblock {
 	 *
 	 * @throws InvalidArgumentException if there is no getDocComment() method available
 	 */
-	protected function parse(ReflectionFunctionAbstract | ReflectionClass | ReflectionProperty | string $docblock): void {
+	protected function parse(ReflectionFunctionAbstract|ReflectionClass|ReflectionProperty|string $docblock): void {
 		$docblock = is_object($docblock) ? $docblock->getDocComment() : $docblock;
 		$docblock = $this->cleanInput($docblock);
 
@@ -207,7 +207,7 @@ class Docblock {
 	 * @return bool
 	 */
 	protected function isTagLine(string $line): bool {
-		return $line[0] === '@';
+		return str_starts_with($line, '@');
 	}
 
 	/**
@@ -289,7 +289,7 @@ class Docblock {
 	}
 
 	/**
-	 * removes tags (by tag name)
+	 * Removes tags (by tag name)
 	 *
 	 * @param string $tagName
 	 */
@@ -308,7 +308,7 @@ class Docblock {
 	 */
 	public function hasTag(string $tagName): bool {
 		return $this->tags->search($tagName,
-			fn (AbstractTag $tag, string $query): bool => $tag->getTagName() == $query
+			fn (AbstractTag $tag, string $query): bool => $tag->getTagName() === $query
 		);
 	}
 
@@ -320,9 +320,9 @@ class Docblock {
 	 * @return ArrayList the tags
 	 */
 	public function getTags(string $tagName = ''): ArrayList {
-		return $this->tags->filter(function (AbstractTag $tag) use ($tagName): bool {
-			return $tagName === '' || $tag->getTagName() === $tagName;
-		});
+		return $tagName === '' ? $this->tags : $this->tags->filter(
+			fn (AbstractTag $tag): bool => $tag->getTagName() === $tagName
+		);
 	}
 
 	/**

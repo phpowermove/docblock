@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @see tag.
+ * Represents the `@see' tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/see.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/see.html
  */
 class SeeTag extends AbstractDescriptionTag {
 	protected string $reference;

@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @param tag.
+ * Represents the `@param` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/param.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/param.html
  */
 class ParamTag extends AbstractVarTypeTag {
 }
