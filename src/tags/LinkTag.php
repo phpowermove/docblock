@@ -10,9 +10,9 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents a @link tag
+ * Represents a `@link` tag
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/link.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/link.html
  */
 class LinkTag extends AbstractDescriptionTag {
 	private string $url = '';

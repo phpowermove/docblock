@@ -43,8 +43,8 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 		// if the first item that is encountered is not a variable; it is a type
 		if (isset($parts[0])
 				&& (strlen($parts[0]) > 0)
-				&& ($parts[0][0] !== '$')
-				&& substr($parts[0], 0, 4) !== '...$') {
+				&& !str_starts_with($parts[0], '$')
+				&& !str_starts_with($parts[0], '...$')) {
 			$this->type = array_shift($parts);
 			array_shift($parts);
 		}
@@ -59,11 +59,11 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 		// if the next item starts with a $ or ...$ it must be the variable name
 		if (isset($parts[0])
 				&& (strlen($parts[0]) > 0)
-				&& ($parts[0][0] == '$' || substr($parts[0], 0, 4) === '...$')) {
+				&& (str_starts_with($parts[0], '$') || str_starts_with($parts[0], '...$'))) {
 			$this->variable = array_shift($parts);
 			array_shift($parts);
 
-			if (substr($this->variable, 0, 3) === '...') {
+			if (str_starts_with($this->variable, '...')) {
 				$this->isVariadic = true;
 				$this->variable = substr($this->variable, 3);
 			}
@@ -95,6 +95,11 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 	 * @return $this        	
 	 */
 	public function setVariable(string $variable): self {
+		if (str_starts_with($variable, '...')) {
+			$this->setVariadic(true);
+			$variable = substr($variable, 3);
+		}
+
 		$this->variable = str_starts_with($variable, '$') ? $variable : "\$$variable";
 
 		return $this;

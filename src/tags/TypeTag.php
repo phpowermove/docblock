@@ -10,7 +10,10 @@
 namespace gossi\docblock\tags;
 
 /**
- * Represents the @type tag.
+ * Represents the `@type` tag.
+ *
+ * @deprecated this tag was removed in phpDocumentor version 3.0
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/index.html
  */
 class TypeTag extends AbstractVarTypeTag {
 }

@@ -12,7 +12,7 @@ namespace gossi\docblock\tags;
 /**
  * Represents the `@deprecated` tag.
  * 
- * @see http://www.phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html
+ * @see https://docs.phpdoc.org/3.0/guide/references/phpdoc/tags/deprecated.html
  */
 class DeprecatedTag extends AbstractVersionTag {
 }
