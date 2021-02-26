@@ -10,17 +10,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.0
           extensions: mbstring, dom, json, libxml, xml, xmlwriter
           coverage: pcov
       - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
       - name: Run test suite
         run: "composer coverage:clover"
-      - name: Download Scrutinizer Ocular
-        run: wget https://scrutinizer-ci.com/ocular.phar
       - name: Upload coverage report
-        run: php ocular.phar code-coverage:upload --format=php-clover clover.xml
+        run: vendor/bin/ocular code-coverage:upload --format=php-clover clover.xml

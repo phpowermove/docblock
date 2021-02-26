@@ -1,4 +1,5 @@
 .buildpath
+clover.xml
 composer.lock
 composer.phar
 .php.cs.cache
