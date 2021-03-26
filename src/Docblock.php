@@ -184,7 +184,7 @@ class Docblock implements \Stringable {
 			foreach (explode("\n", $tags) as $line) {
 				if ($this->isTagLine($line) || count($result) == 0) {
 					$result[] = $line;
-				} else {
+				} elseif ($line !== '') {
 					$result[count($result) - 1] .= "\n" . $line;
 				}
 			}

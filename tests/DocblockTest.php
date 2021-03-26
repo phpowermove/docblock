@@ -201,4 +201,20 @@ class DocblockTest extends TestCase {
 		$this->assertTrue($docblock->hasTag('see'));
 		$this->assertFalse($docblock->hasTag('since'));
 	}
+
+	public function testDocblockWithBlankLines(): void {
+		$text = '/**
+ * @param string $foo makes a fow
+ *
+ * @return bool true on success and false if it fails
+ */';
+		$docblock = new Docblock($text);
+		$tags = $docblock->getTags();
+
+		$this->assertEquals(2, $tags->size());
+		$this->assertInstanceOf(ParamTag::class, $tags->get(0));
+		$this->assertEquals('makes a fow', $tags->get(0)->getDescription());
+		$this->assertInstanceOf(ReturnTag::class, $tags->get(1));
+		$this->assertEquals('true on success and false if it fails', $tags->get(1)->getDescription());
+	}
 }
