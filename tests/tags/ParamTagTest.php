@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace gossi\docblock\tests\tags;
+namespace phpowermove\docblock\tests\tags;
 
-use gossi\docblock\tags\ParamTag;
+use phpowermove\docblock\tags\ParamTag;
 use PHPUnit\Framework\TestCase;
 
 class ParamTagTest extends TestCase {

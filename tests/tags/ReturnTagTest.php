@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace gossi\docblock\tests\tags;
+namespace phpowermove\docblock\tests\tags;
 
-use gossi\docblock\tags\ReturnTag;
+use phpowermove\docblock\tags\ReturnTag;
 use PHPUnit\Framework\TestCase;
 
 class ReturnTagTest extends TestCase {

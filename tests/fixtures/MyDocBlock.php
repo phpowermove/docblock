@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace gossi\docblock\tests\fixtures;
+namespace phpowermove\docblock\tests\fixtures;
 
-use gossi\docblock\Docblock;
+use phpowermove\docblock\Docblock;
 
 class MyDocBlock extends Docblock {
 	protected function splitDocblock($comment): array {

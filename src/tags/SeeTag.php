@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 /**
  * Represents the `@see' tag.

@@ -7,15 +7,15 @@
  * @license MIT License
  */
 
-namespace gossi\docblock;
+namespace phpowermove\docblock;
 
-use gossi\docblock\tags\AbstractTag;
-use gossi\docblock\tags\TagFactory;
 use InvalidArgumentException;
 use LogicException;
 use phootwork\collection\ArrayList;
 use phootwork\collection\Map;
 use phootwork\lang\Comparator;
+use phpowermove\docblock\tags\AbstractTag;
+use phpowermove\docblock\tags\TagFactory;
 use ReflectionClass;
 use ReflectionFunctionAbstract;
 use ReflectionProperty;
@@ -26,7 +26,7 @@ class Docblock implements \Stringable {
 	protected ArrayList $tags;
 	protected ?Comparator $comparator = null;
 
-	const REGEX_TAGNAME = '[\w\-\_\\\\]+';
+	public const REGEX_TAGNAME = '[\w\-\_\\\\]+';
 
 	/**
 	 * Static docblock factory
@@ -307,7 +307,8 @@ class Docblock implements \Stringable {
 	 * @return bool
 	 */
 	public function hasTag(string $tagName): bool {
-		return $this->tags->search($tagName,
+		return $this->tags->search(
+			$tagName,
 			fn (AbstractTag $tag, string $query): bool => $tag->getTagName() === $query
 		);
 	}

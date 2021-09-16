@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 use phootwork\lang\Text;
 
@@ -32,7 +32,7 @@ abstract class AbstractTag implements \Stringable {
 	 */
 	final public function __construct(string $content = '') {
 		$this->tagName = Text::create(get_class($this))
-			->trimStart('gossi\\docblock\\tags\\')
+			->trimStart('phpowermove\\docblock\\tags\\')
 			->trimEnd('Tag')
 			->toKebabCase()
 			->toString()

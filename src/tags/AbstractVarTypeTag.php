@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 use phootwork\lang\Text;
 
@@ -22,7 +22,7 @@ abstract class AbstractVarTypeTag extends AbstractTypeTag {
 
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php Original Method: setContent()
-	 * @see \gossi\docblock\tags\AbstractTypeTag::parse()
+	 * @see \phpowermove\docblock\tags\AbstractTypeTag::parse()
 	 *
 	 * @param string $content
 	 */

@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 /**
  * Represents the `@author` tag.
@@ -19,26 +19,29 @@ class AuthorTag extends AbstractTag {
 	/**
 	 * PCRE regular expression matching any valid value for the name component.
 	 */
-	const REGEX_AUTHOR_NAME = '[^\<]*';
+	public const REGEX_AUTHOR_NAME = '[^\<]*';
 
 	/**
 	 * PCRE regular expression matching any valid value for the email component.
 	 */
-	const REGEX_AUTHOR_EMAIL = '[^\>]*';
+	public const REGEX_AUTHOR_EMAIL = '[^\>]*';
 
 	protected string $name = '';
 	protected string $email = '';
 
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php Original Method: setContent()
-	 * @see \gossi\docblock\tags\AbstractTag::parse()
+	 * @see \phpowermove\docblock\tags\AbstractTag::parse()
 	 *
 	 * @param string $content
 	 */
 	protected function parse(string $content): void {
 		$matches = [];
-		if (preg_match('/^(' . self::REGEX_AUTHOR_NAME . ')(\<(' . self::REGEX_AUTHOR_EMAIL . ')\>)?$/u',
-				$content, $matches)) {
+		if (preg_match(
+			'/^(' . self::REGEX_AUTHOR_NAME . ')(\<(' . self::REGEX_AUTHOR_EMAIL . ')\>)?$/u',
+			$content,
+			$matches
+		)) {
 			$this->name = trim($matches[1]);
 			if (isset($matches[3])) {
 				$this->email = trim($matches[3]);

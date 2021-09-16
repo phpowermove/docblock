@@ -7,19 +7,19 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tests;
+namespace phpowermove\docblock\tests;
 
-use gossi\docblock\Docblock;
-use gossi\docblock\tags\AuthorTag;
-use gossi\docblock\tags\ParamTag;
-use gossi\docblock\tags\PropertyTag;
-use gossi\docblock\tags\ReturnTag;
-use gossi\docblock\tags\SeeTag;
-use gossi\docblock\tags\SinceTag;
-use gossi\docblock\tags\ThrowsTag;
-use gossi\docblock\tags\UnknownTag;
-use gossi\docblock\tests\fixtures\MyDocBlock;
 use InvalidArgumentException;
+use phpowermove\docblock\Docblock;
+use phpowermove\docblock\tags\AuthorTag;
+use phpowermove\docblock\tags\ParamTag;
+use phpowermove\docblock\tags\PropertyTag;
+use phpowermove\docblock\tags\ReturnTag;
+use phpowermove\docblock\tags\SeeTag;
+use phpowermove\docblock\tags\SinceTag;
+use phpowermove\docblock\tags\ThrowsTag;
+use phpowermove\docblock\tags\UnknownTag;
+use phpowermove\docblock\tests\fixtures\MyDocBlock;
 use PHPUnit\Framework\TestCase;
 
 class DocblockTest extends TestCase {
@@ -122,7 +122,7 @@ class DocblockTest extends TestCase {
  *
  * @author gossi
  */';
-		$reflection = new \ReflectionClass('\\gossi\\docblock\\tests\\fixtures\\ReflectionTestClass');
+		$reflection = new \ReflectionClass('\\phpowermove\\docblock\\tests\\fixtures\\ReflectionTestClass');
 		$docblock = Docblock::create($reflection);
 
 		$this->assertEquals($expected, '' . $docblock);

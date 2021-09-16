@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 /**
  * Represents tags which are in the format
@@ -20,7 +20,7 @@ abstract class AbstractVersionTag extends AbstractDescriptionTag {
 	 * PCRE regular expression matching a version vector.
 	 * Assumes the "x" modifier.
 	 */
-	const REGEX_VERSION = '(?:
+	public const REGEX_VERSION = '(?:
         # Normal release vectors.
         \d\S*
         |
@@ -36,22 +36,23 @@ abstract class AbstractVersionTag extends AbstractDescriptionTag {
 
 	/**
 	 * @see https://github.com/phpDocumentor/ReflectionDocBlock/blob/master/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php Original Method: setContent()
-	 * @see \gossi\docblock\tags\AbstractTag::parse()
+	 * @see \phpowermove\docblock\tags\AbstractTag::parse()
 	 *
 	 * @param string $content
 	 */
 	protected function parse(string $content): void {
 		$matches = [];
 		if (preg_match(
-				'/^
+			'/^
 	                # The version vector
 	                (' . self::REGEX_VERSION . ')
 	                \s*
 	                # The description
 	                (.+)?
 	            $/sux',
-				$content,
-				$matches)) {
+			$content,
+			$matches
+		)) {
 			$this->version = $matches[1];
 			$this->setDescription($matches[2] ?? '');
 		}
