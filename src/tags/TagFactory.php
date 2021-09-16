@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tags;
+namespace phpowermove\docblock\tags;
 
 use phootwork\lang\Text;
 
@@ -29,7 +29,7 @@ class TagFactory {
 	public static function create(string $tagName, string $content = ''): AbstractTag {
 		$class = Text::create($tagName)
 			->toStudlyCase()
-			->prepend('gossi\\docblock\\tags\\')
+			->prepend('phpowermove\\docblock\\tags\\')
 			->append('Tag')
 			->toString()
 		;

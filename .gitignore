@@ -2,8 +2,7 @@
 clover.xml
 composer.lock
 composer.phar
-.php.cs.cache
-.phpunit.result.cache
+*.cache
 sami.phar
 vendor/
 api/

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace gossi\docblock\tests\tags;
+namespace phpowermove\docblock\tests\tags;
 
-use gossi\docblock\Docblock;
-use gossi\docblock\tags\VarTag;
+use phpowermove\docblock\Docblock;
+use phpowermove\docblock\tags\VarTag;
 use PHPUnit\Framework\TestCase;
 
 class VarTagTest extends TestCase {

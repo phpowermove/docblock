@@ -7,10 +7,10 @@
  * @license MIT License
  */
 
-namespace gossi\docblock\tests;
+namespace phpowermove\docblock\tests;
 
-use gossi\docblock\TagNameComparator;
 use phootwork\collection\ArrayList;
+use phpowermove\docblock\TagNameComparator;
 use PHPUnit\Framework\TestCase;
 
 class TagNameComparatorTest extends TestCase {

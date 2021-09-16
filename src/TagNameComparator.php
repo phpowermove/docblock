@@ -7,7 +7,7 @@
  * @license MIT License
  */
 
-namespace gossi\docblock;
+namespace phpowermove\docblock;
 
 use phootwork\lang\Comparator;
 

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace gossi\docblock\tests\tags;
+namespace phpowermove\docblock\tests\tags;
 
-use gossi\docblock\tags\TypeTag;
+use phpowermove\docblock\tags\TypeTag;
 use PHPUnit\Framework\TestCase;
 
 class TypeTagTest extends TestCase {

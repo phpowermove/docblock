@@ -14,16 +14,16 @@
 		"generator"
 	],
 	"support" : {
-		"issues" : "https://github.com/gossi/docblock/issues"
+		"issues" : "https://github.com/phpowermove/docblock/issues"
 	},
 	"autoload" : {
 		"psr-4" : {
-			"gossi\\docblock\\" : "src/"
+			"phpowermove\\docblock\\" : "src/"
 		}
 	},
 	"autoload-dev" : {
 		"psr-4" : {
-			"gossi\\docblock\\tests\\" : "tests/"
+			"phpowermove\\docblock\\tests\\" : "tests/"
 		}
 	},
 	"require" : {
@@ -33,7 +33,7 @@
 	},
 	"require-dev" : {
 		"phpunit/phpunit" : "^9.0",
-		"phootwork/php-cs-fixer-config": "^0.3",
+		"phootwork/php-cs-fixer-config": "^0.4",
 		"psalm/phar": "^4.3"
 	},
 	"scripts": {

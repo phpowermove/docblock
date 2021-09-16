@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace gossi\docblock\tests\tags;
+namespace phpowermove\docblock\tests\tags;
 
-use gossi\docblock\tags\AuthorTag;
-use gossi\docblock\tags\TagFactory;
-use gossi\docblock\tags\UnknownTag;
+use phpowermove\docblock\tags\AuthorTag;
+use phpowermove\docblock\tags\TagFactory;
+use phpowermove\docblock\tags\UnknownTag;
 use PHPUnit\Framework\TestCase;
 
 class TagFactoryTest extends TestCase {
