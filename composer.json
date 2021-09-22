@@ -1,5 +1,5 @@
 {
-	"name" : "gossi/docblock",
+	"name" : "phpowermove/docblock",
 	"type" : "library",
 	"description" : "PHP Docblock parser and generator. An API to read and write Docblocks.",
 	"license" : "MIT",
